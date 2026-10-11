@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>大富豪</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0b3d2a;--bg2:#06261a;--tx:#f4f1e6;--gold:#e8c35a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 50% 40%,var(--bg),var(--bg2)) fixed;color:var(--tx);font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;min-height:100vh}
+#app{max-width:860px;margin:0 auto;padding:42px 10px 10px}
+h1{font-size:18px;margin:4px 0 8px;color:var(--gold);letter-spacing:.2em;text-align:center}
+#bar{position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);left:6px;right:6px;z-index:5;display:flex;gap:5px;align-items:center}#bar .sp{flex:1}.tb{padding:5px 9px;font:inherit;font-size:12px;font-weight:400;background:#000a;color:var(--gold);border:1px solid var(--gold);border-radius:20px;cursor:pointer}.si{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #fff2;font-size:13px}.si .sw{width:54px;height:38px;border-radius:6px;border:1px solid #fff4;display:flex;align-items:center;justify-content:center;flex:none}.si .nm{flex:1}.si button{padding:6px 14px;font-size:12px}.c[data-cd=gold]{background:#fff8e1;box-shadow:0 0 0 2px var(--gold),0 1px 4px #0007}.c[data-cd=dark]{background:#1c1c24;color:#eee}.c[data-cd=dark].r{color:#ff6b6b}.c[data-cd=dark].j{color:#b79bff}.c[data-cd=neon]{background:#0a0a1a;color:#4ff;box-shadow:0 0 8px #0ff}.c[data-cd=neon].r{color:#f6f}.c[data-cd=neon].j{color:#ff0}#df option{color:#222}#lv{text-align:center;font-size:12px;opacity:.85;margin-bottom:6px}#rcb p{margin:5px 0;font-size:13px}#rcb .a{opacity:.4}#toast{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 46px);background:var(--gold);color:#222;padding:8px 16px;border-radius:20px;font-weight:700;font-size:13px;z-index:20;display:none}
+#opps{display:flex;gap:8px}
+.opp{flex:1;background:#0004;border:2px solid #fff2;border-radius:10px;padding:8px;text-align:center;font-size:13px;min-width:0}
+.opp.on,#me.on{border-color:var(--gold);box-shadow:0 0 12px #e8c35a88}
+.opp .n{font-size:22px;font-weight:700}
+.badge{display:inline-block;background:var(--gold);color:#222;border-radius:8px;padding:0 8px;font-size:12px;font-weight:700}
+#field{margin:12px 0;min-height:140px;background:#0003;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:8px}
+#fc{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
+#rev{color:#ff9a7a;font-weight:700;min-height:18px;font-size:14px;text-align:center}
+#log{text-align:center;min-height:22px;font-size:14px;color:#ffe9a8}
+#me{border:2px solid transparent;border-radius:12px;padding:6px}
+#hand{display:flex;flex-wrap:wrap;justify-content:center;padding:18px 6px 4px}
+.c{width:48px;height:70px;background:#fff;color:#111;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:15px;line-height:1.1;box-shadow:0 1px 4px #0007;user-select:none;flex:none;transition:transform .12s}
+.c.r{color:#c4161c}.c i{font-style:normal;font-size:22px}
+.c.j{color:#6a2fc4;font-size:11px}
+#hand .c{margin:2px -6px;cursor:pointer}
+#hand .c.s{transform:translateY(-14px);outline:3px solid var(--gold)}
+#btns{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}#ht,#rd{background:#fff3;color:var(--tx)}#cfm{white-space:pre-line}
+button{font:inherit;font-weight:700;padding:10px 26px;border:0;border-radius:24px;background:var(--gold);color:#222;cursor:pointer}
+button:disabled{opacity:.35;cursor:default}
+#pass{background:#fff3;color:var(--tx)}
+.ov{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:9;padding:12px}
+.ov>div{background:var(--bg2);border:2px solid var(--gold);border-radius:16px;padding:20px 24px;max-height:88vh;overflow:auto;max-width:520px;width:100%}
+#end>div{text-align:center;line-height:2;width:auto}
+#rm label{display:block;padding:7px 0;border-bottom:1px solid #fff2;font-size:13px;line-height:1.5}
+#rm b{margin:0 6px;color:var(--gold)}#rm span{opacity:.85}
+@media(max-width:520px){.c{width:40px;height:60px;font-size:13px}#hand .c{margin:2px -8px}.opp{font-size:11px}}
+</style></head><body>
+<div id="bar"><select id="df" class="tb" title="難易度"><option value="0">かんたん</option><option value="1">ふつう</option><option value="2">むずかしい</option><option value="3">鬼</option></select><span class="sp"></span><button id="shp" class="tb">ショップ</button><button id="kb" class="tb">記録</button><button id="rb" class="tb">ルール</button><button id="sb" class="tb"></button></div><div id="toast"></div>
+<div id="app">
+<h1>♠ 大富豪 ♥</h1><div id="lv"></div>
+<div id="opps"></div>
+<div id="field"><div id="rev"></div><div id="fc"></div></div>
+<div id="log"></div>
+<div id="me"><div id="hand"></div>
+<div id="btns"><button id="play">出す</button><button id="pass">パス</button><button id="ht" style="display:none"></button><button id="rd" style="display:none">配り直し</button></div></div>
+</div>
+<div id="end" class="ov"><div><div id="res"></div><button onclick="start()">もう一度</button></div></div>
+<div id="rm" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">ルール</h2>
+<p style="font-size:13px;margin:0 0 8px">強さ：3＜4＜…＜K＜A＜2＜ジョーカー。場と同じ枚数で強いカードを出す。出せない時はパス。全員パスで場が流れる。チェックでON/OFF（カード交換は次の対戦から）。</p>
+<div id="rl"></div><div style="text-align:center;margin-top:12px"><button onclick="$('rm').style.display='none'">閉じる</button></div></div></div>
+<div id="dt" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">データ管理</h2><p style="font-size:12px;margin:0 0 6px">引継ぎコードを書き出して、別の端末やブラウザで読み込めます。</p><textarea id="dtx" rows="5" style="width:100%;font-size:11px;background:#000;color:var(--tx);border:1px solid #fff4;border-radius:8px" placeholder="ここに引継ぎコードを貼り付け"></textarea><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:10px"><button onclick="dtOut()">書き出し</button><button onclick="dtCopy()">コピー</button><button onclick="dtIn()">読み込み</button><button onclick="resetS()" style="background:#c0392b;color:#fff">リセット</button></div><div style="text-align:center;margin-top:10px"><button onclick="$('dt').style.display='none'">閉じる</button></div></div></div>
+<div id="cf" class="ov" style="z-index:30"><div style="text-align:center"><p id="cfm" style="line-height:1.7"></p><button id="cfy">はい</button> <button id="cfn" style="background:#fff3;color:var(--tx)">いいえ</button></div></div>
+<div id="sp" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">ショップ</h2><div id="spb"></div><div style="text-align:center;margin-top:12px"><button onclick="$('sp').style.display='none'">閉じる</button></div></div></div>
+<div id="rc" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">記録</h2><div id="rcb"></div><div style="text-align:center;margin-top:12px"><button onclick="showDt()" style="background:#fff3;color:var(--tx)">データ管理</button> <button onclick="$('rc').style.display='none'">閉じる</button></div></div></div>
+<script>
+const SU=['♠','♥','♦','♣'],RL={11:'J',12:'Q',13:'K',14:'A',15:'2'};
+const NM=['あなた','CPU 太郎','CPU 花子','CPU 次郎'],TT=['大富豪','富豪','貧民','大貧民'];
+const R={eight:1,revo:1,eleven:1,shib:1,stair:1,sp3:1,five:1,foul:1,exch:1};
+const RULES=[['eight','8切り','8を出すと場が流れ、もう一度自分の番。'],
+['revo','革命','同じ数字を4枚以上同時に出すと、強弱が逆転。'],
+['eleven','11バック','Jを出すと、場が流れるまで強弱が逆転。'],
+['shib','しばり','同じマークが連続で出ると、場が流れるまでそのマークしか出せない。'],
+['stair','階段','同じマークで3枚以上の連続数字（例：♥5-6-7）。ジョーカーで代用可。'],
+['sp3','スペ3返し','ジョーカー単体を♠3で返せる。'],
+['five','5スキップ','5を出すと次の人を飛ばす。'],
+['foul','反則上がり','8かジョーカーで上がると最下位扱い。'],
+['exch','カード交換','2戦目以降：大貧民→大富豪に最強2枚（大富豪は好きな2枚を返す）、貧民⇔富豪は1枚。大貧民から開始。']];
+let H,field,last,passes,turn,rev,bk,shib,out,fl,sel,over,prev=null,xm=null;
+const $=id=>document.getElementById(id);
+const $m=n=>'$'+Math.round(n).toLocaleString();
+let gs=0,evs=new Set(),ms=null,msd=0,AC,rd=0,hl=0,hm=false,tm;
+const SHOP=[['bg','felt','フェルト（標準）',0,'radial-gradient(circle at 50% 40%,#0b3d2a,#06261a)'],
+['bg','night','星空',3000,'radial-gradient(1.5px 1.5px at 20% 30%,#fff,#0000),radial-gradient(2px 2px at 70% 20%,#fff,#0000),radial-gradient(1.5px 1.5px at 40% 75%,#fff,#0000),radial-gradient(2px 2px at 85% 60%,#fff,#0000),radial-gradient(1.5px 1.5px at 10% 80%,#fff,#0000),linear-gradient(#0a0a2e,#1b1b4b)'],
+['bg','sunset','夕焼け',5000,'linear-gradient(#1e2a5a,#7a3b6e 45%,#ff7b54 80%,#ffd27a)'],
+['bg','wa','和の波',8000,'repeating-radial-gradient(circle at 0 0,#16324f 0 12px,#1f4e79 12px 24px)'],
+['bg','cyber','サイバーグリッド',12000,'linear-gradient(#0000 94%,#0ff5 96%) 0 0/40px 40px,linear-gradient(90deg,#0000 94%,#0ff5 96%) 0 0/40px 40px,#050514'],
+['bg','gold','黄金の間',30000,'linear-gradient(135deg,#3b2a05,#8a6a1a 40%,#e8c35a 60%,#5a420c)'],
+['cd','classic','クラシック（標準）',0],['cd','gold','ゴールドフレーム',4000],['cd','dark','ダークカード',6000],['cd','neon','ネオンカード',15000],
+['ut','redo','配り直しチケット：毎戦1回、最初の行動前に手札を配り直せる',6000,'🎫'],
+['ut','hint','ヒントスコープ：毎戦3回、おすすめの手を選択してくれる',8000,'🔍'],
+['ut','guard','連勝ガード：2位でも連勝が途切れない',10000,'🛡️'],
+['ut','luck','幸運のコイン：配札時、50%でジョーカーを引き寄せる',12000,'🪙'],
+['ut','purse','黄金の財布：獲得スコア×1.25',20000,'👛']];
+const TN=(f,t,d,ty='square',v=.07,f2)=>{const o=AC.createOscillator(),g=AC.createGain(),n=AC.currentTime+t;o.type=ty;o.frequency.setValueAtTime(f,n);if(f2)o.frequency.exponentialRampToValueAtTime(f2,n+d);g.gain.setValueAtTime(v,n);g.gain.exponentialRampToValueAtTime(.001,n+d);o.connect(g);g.connect(AC.destination);o.start(n);o.stop(n+d+.02)};
+const SFX={sel:()=>TN(880,0,.05,'triangle',.06),play:()=>TN(300,0,.08,'square',.07,120),play2:()=>TN(240,0,.06,'square',.04,100),pass:()=>TN(220,0,.12,'sine',.07,150),
+rev:()=>[0,.1,.2].forEach((t,i)=>TN(500-i*120,t,.15,'sawtooth',.06,200)),cut:()=>{TN(1200,0,.15,'sawtooth',.06,200);TN(100,0,.2,'sine',.1)},skip:()=>TN(400,0,.2,'triangle',.07,900),
+win:()=>[523,659,784,1047].forEach((f,i)=>TN(f,i*.12,.25,'square',.07)),lose:()=>[392,330,262,196].forEach((f,i)=>TN(f,i*.18,.3,'triangle',.08)),
+ach:()=>[784,988,1319].forEach((f,i)=>TN(f,i*.09,.2,'sine',.09)),buy:()=>{TN(1318,0,.08,'square',.06);TN(1760,.08,.2,'square',.06)}};
+function sfx(k){if(!S.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();SFX[k]()}catch(e){}}
+const updSb=()=>$('sb').textContent=S.snd?'🔊':'🔇';
+function applyTheme(){const b=SHOP.find(x=>x[1]==S.eq.bg)||SHOP[0];document.body.style.background=b[4];document.body.style.backgroundAttachment='fixed'}
+function showSp(){let h='<p style="font-size:14px;margin:0">所持金：<b style="color:var(--gold)">'+$m(S.money)+'</b></p>';
+ [['bg','背景'],['cd','カードデザイン'],['ut','有利アイテム']].forEach(([k,t])=>{h+='<h3 style="margin:12px 0 2px;font-size:14px">'+t+'</h3>';
+  SHOP.filter(x=>x[0]==k).forEach(x=>{const own=x[3]==0||S.inv[x[1]],on=k=='ut'?!!S.inv[x[1]]:S.eq[k]==x[1];
+   h+='<div class="si"><div class="sw" style="'+(k=='bg'?'background:'+x[4]:'font-size:22px')+'">'+(k=='ut'?x[4]:'')+(k=='cd'?'<span class="c" data-cd="'+x[1]+'" style="width:28px;height:40px;font-size:11px">A<i style="font-size:14px">♠</i></span>':'')+'</div><div class="nm">'+x[2]+'</div>'+
+   (on?'<span class="badge">'+(k=='ut'?'所持中':'装備中')+'</span>':'<button onclick="shopAct(\''+x[1]+'\')">'+(own?'装備':'購入 '+$m(x[3]))+'</button>')+'</div>'})});
+ $('spb').innerHTML=h;$('sp').style.display='flex'}
+function shopAct(id){const x=SHOP.find(y=>y[1]==id);
+ if(!(x[3]==0||S.inv[id])){if(S.money<x[3])return toast('お金が足りません');S.money-=x[3];S.inv[id]=1;sfx('buy')}else sfx('sel');
+ if(x[0]!='ut')S.eq[x[0]]=id;save();applyTheme();updLv();showSp();render()}
+function ev(k,pt){gs+=pt;evs.add(k);
+ if(ms&&k==ms[0]&&!msd){msd=1;gs+=500;toast('ミッション達成 +500');sfx('ach')}updLv()}
+const D_NM=['かんたん','ふつう','むずかしい','鬼'],D_PT=[.5,1,1.5,2];
+const LV=[[0,'平民'],[5000,'商人'],[15000,'貴族'],[40000,'大臣'],[100000,'将軍'],[250000,'大富豪王']];
+const ACH=[['first','初勝利','1位になる'],['king','大富豪','大富豪（1位）で終える'],['win3','3連勝','3連続で1位'],['rise','下剋上','大貧民の次の対戦で1位になる'],['oni','鬼退治','鬼で1位になる'],['rev','革命児','革命を起こす'],['stair','階段使い','階段を出す'],['back','11バック','11バックを決める'],['cut','8切りの達人','8切りを決める'],['sp3','スペ3の守り','スペ3返しを決める'],['five','スキップ王','5スキップを決める'],['g50','古参','通算50戦する'],['pt1000','富豪への道','累計$10,000を稼ぐ']];
+const S0=()=>({g:0,w:[0,0,0,0],r:[0,0,0,0],pt:0,money:0,st:0,best:0,ach:{},d:1,snd:1,inv:{},eq:{bg:'felt',cd:'classic'}});
+let S=S0(),nw=[],rq=0;
+try{Object.assign(S,JSON.parse(localStorage.getItem('daifugo')||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem('daifugo',JSON.stringify(S))}catch(e){}};
+function toast(t){const e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>e.style.display='none',2200)}
+function unlock(id){if(S.ach[id])return;S.ach[id]=1;sfx('ach');const a=ACH.find(x=>x[0]==id);nw.push(a[1]);toast('🏆 実績：'+a[1]);save()}
+function updLv(){let n=LV[0][1];LV.forEach(l=>{if(S.pt>=l[0])n=l[1]});$('lv').innerHTML='称号：'+n+'　💵'+$m(S.money)+'　連勝 '+S.st+'　今回 '+gs+(ms?'<br>ミッション：'+ms[2]+(msd?'（達成！）':'（+500）'):'')}
+function showRc(){$('rcb').innerHTML='<p>対戦数：'+S.g+'　累計獲得：'+$m(S.pt)+'　所持金：'+$m(S.money)+'　最高連勝：'+S.best+'</p><p>順位：'+TT.map((t,i)=>t+' '+S.r[i]).join(' / ')+'</p><p>難易度別1位：'+D_NM.map((t,i)=>t+' '+S.w[i]).join(' / ')+'</p><hr>'+ACH.map(a=>'<p class="'+(S.ach[a[0]]?'':'a')+'">'+(S.ach[a[0]]?'🏆':'🔒')+' <b>'+a[1]+'</b> '+a[2]+'</p>').join('');$('rc').style.display='flex'}
+function ask(m,f){$('cfm').textContent=m;$('cf').style.display='flex';$('cfy').onclick=()=>{$('cf').style.display='none';f()};$('cfn').onclick=()=>$('cf').style.display='none'}
+function showDt(){$('rc').style.display='none';$('dt').style.display='flex'}
+const afterData=()=>{save();applyTheme();updSb();$('df').value=S.d;updLv()};
+function dtOut(){ask('引継ぎコードを書き出しますか？\nコードには全てのデータが含まれます。他人に見せないでください。',()=>{$('dtx').value='DF1:'+btoa(unescape(encodeURIComponent(JSON.stringify(S))));toast('書き出しました。コピーして保管してください')})}
+function dtCopy(){const t=$('dtx');if(!t.value)return toast('先に「書き出し」を行ってください');t.select();try{navigator.clipboard.writeText(t.value)}catch(e){document.execCommand('copy')}toast('コピーしました')}
+function dtIn(){const t=$('dtx').value.trim();let o;
+ try{if(!t.startsWith('DF1:'))throw 0;o=JSON.parse(decodeURIComponent(escape(atob(t.slice(4)))));if(typeof o!='object'||typeof o.pt!='number')throw 0}catch(e){return toast('引継ぎコードが正しくありません')}
+ ask('現在のデータは消え、コードのデータで上書きされます。\n読み込みますか？',()=>{S=Object.assign(S0(),o);S.eq=Object.assign({bg:'felt',cd:'classic'},S.eq);afterData();toast('読み込みました');sfx('buy')})}
+function resetS(){ask('全てのデータ（スコア・所持金・購入品・実績）が消えます。\n本当にリセットしますか？',()=>{S=S0();afterData();$('dt').style.display='none';toast('リセットしました')})}
+const eff=()=>rev!=bk;
+const sr=r=>r==16?99:(eff()?18-r:r);
+const act=p=>H[p].length>0;
+const nextA=p=>{let i=p;do{i=(i+1)%4}while(!act(i));return i};
+const nAct=()=>H.filter(h=>h.length).length;
+const lb=c=>c.r==16?'JOKER':SU[c.s]+(RL[c.r]||c.r);
+function validate(cs){const n=cs.length;if(!n)return null;
+ const nj=cs.filter(c=>c.r<16),J=n-nj.length;
+ if(!nj.length)return{t:'g',n,r:16,key:16};
+ const r0=nj[0].r;
+ if(nj.every(c=>c.r==r0))return{t:'g',n,r:r0,key:r0};
+ if(!R.stair||n<3||nj.some(c=>c.s!=nj[0].s))return null;
+ const rs=nj.map(c=>c.r).sort((a,b)=>a-b);
+ if(new Set(rs).size<rs.length)return null;
+ let lo=rs[0],hi=rs[rs.length-1];const ex=J-((hi-lo+1)-nj.length);
+ if(ex<0)return null;
+ const up=Math.min(ex,15-hi);hi+=up;lo-=ex-up;if(lo<3)return null;
+ return{t:'s',n,key:eff()?lo:hi}}
+function shibOK(cs){if(!shib)return true;const a=[...shib];
+ for(const c of cs.filter(c=>c.r<16)){const i=a.indexOf(c.s);if(i<0)return false;a.splice(i,1)}return true}
+function ok(cs){const v=validate(cs);if(!v)return false;if(!field)return true;
+ if(R.sp3&&field.t=='g'&&field.key==16&&field.n==1&&cs.length==1&&cs[0].s==0&&cs[0].r==3)return true;
+ return v.t==field.t&&v.n==field.n&&sr(v.key)>sr(field.key)&&shibOK(cs)}
+function legal(h){const g={},J=h.filter(c=>c.r==16),P=[];
+ h.forEach(c=>{if(c.r<16)(g[c.r]=g[c.r]||[]).push(c)});
+ for(const r in g){const a=g[r];for(let n=1;n<=a.length;n++)for(let j=0;j<=J.length;j++){
+  const cs=a.slice(0,n).concat(J.slice(0,j));if(ok(cs))P.push(cs)}}
+ for(let j=1;j<=J.length;j++){const cs=J.slice(0,j);if(ok(cs))P.push(cs)}
+ if(R.stair)for(let s=0;s<4;s++){const m={};h.forEach(c=>{if(c.s==s)m[c.r]=c});
+  for(let lo=3;lo<=13;lo++)for(let hi=lo+2;hi<=15;hi++){let cs=[],jn=0;
+   for(let r=lo;r<=hi;r++){if(m[r])cs.push(m[r]);else jn++}
+   if(cs.length&&jn<=J.length){cs=cs.concat(J.slice(0,jn));if(ok(cs))P.push(cs)}}}
+ return P}
+const sortAll=()=>H.forEach(h=>h.sort((a,b)=>a.r-b.r||a.s-b.s));
+function start(k){rd=typeof k=='number'?k:(S.inv.redo?1:0);hl=S.inv.hint?3:0;hm=false;
+ const d=[];let id=0;
+ for(let s=0;s<4;s++)for(let r=3;r<=15;r++)d.push({id:id++,s,r});
+ d.push({id:id++,s:4,r:16},{id:id++,s:4,r:16});
+ for(let i=d.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[d[i],d[j]]=[d[j],d[i]]}
+ H=[[],[],[],[]];d.forEach((c,i)=>H[i%4].push(c));
+ if(S.inv.luck&&!H[0].some(c=>c.r==16)&&Math.random()<.5){const q=H.findIndex((h,i)=>i&&h.some(c=>c.r==16));if(q>0){const jc=H[q].find(c=>c.r==16);H[q]=H[q].filter(c=>c!==jc);H[0].sort((a,b)=>a.r-b.r);const w=H[0].shift();H[q].push(w);H[0].push(jc)}}
+ field=null;last=0;passes=0;rev=false;bk=false;shib=null;out=[];fl=new Set();sel=new Set();over=false;xm=null;
+ $('end').style.display='none';gs=0;evs=new Set();const mp=[['stair',R.stair,'階段を出す'],['rev',R.revo,'革命を起こす'],['back',R.eleven,'11バックを決める'],['cut',R.eight,'8切りを決める'],['five',R.five,'5スキップを決める']].filter(x=>x[1]);ms=mp.length?mp[Math.random()*mp.length|0]:null;msd=0;updLv();
+ let m;
+ if(R.exch&&prev){
+  [[prev[3],prev[0],2],[prev[2],prev[1],1]].forEach(([lo,hi,n])=>{
+   H[lo].sort((a,b)=>b.r-a.r);const g=H[lo].splice(0,n);H[hi].push(...g);
+   if(hi==0)xm={n,to:lo};
+   else{H[hi].sort((a,b)=>a.r-b.r);H[lo].push(...H[hi].splice(0,n))}
+   if(lo==0)m='最強の'+n+'枚を渡しました：'+g.map(lb).join(' ')});
+  turn=prev[3];m=(m||'カード交換')+(xm?'　渡すカードを'+xm.n+'枚選んで「渡す」':'')+'　'+NM[turn]+'から開始';
+ }else{sortAll();turn=Math.max(0,H.findIndex(h=>h.some(c=>c.s==2&&c.r==3)));m=NM[turn]+'から開始（♦3の人）'}
+ sortAll();say(m);tick()}
+const say=m=>$('log').textContent=m;
+function cardEl(c,cls=''){const e=document.createElement('div');e.dataset.cd=S.eq.cd;
+ e.className='c '+(c.r==16?'j ':(c.s==1||c.s==2?'r ':''))+cls;
+ e.innerHTML=c.r==16?'JOKER<i>🃏</i>':(RL[c.r]||c.r)+'<i>'+SU[c.s]+'</i>';return e}
+function render(){
+ $('opps').innerHTML='';
+ for(let p=1;p<4;p++){const e=document.createElement('div');
+  e.className='opp'+(turn==p&&!over&&!xm?' on':'');
+  const o=out.indexOf(p);
+  e.innerHTML=NM[p]+'<div class="n">'+H[p].length+'</div>'+(o>=0?'<span class="badge">'+(fl.has(p)?'反則上がり':(o+1)+'位上がり')+'</span>':'枚');
+  $('opps').appendChild(e)}
+ $('me').className=(turn==0||xm)&&!over?'on':'';
+ $('rev').textContent=(rev?'🔥革命中 ':'')+(bk?'⤵11バック中 ':'')+(shib?'🔒しばり：'+[...new Set(shib)].map(s=>SU[s]).join('')+' ':'');
+ $('fc').innerHTML='';
+ if(field)field.cards.forEach(c=>$('fc').appendChild(cardEl(c)));
+ else $('fc').innerHTML='<span style="opacity:.6">場は空です</span>';
+ $('hand').innerHTML='';
+ H[0].forEach(c=>{const e=cardEl(c,sel.has(c.id)?'s':'');
+  e.onclick=()=>{if((turn!=0&&!xm)||over)return;sfx('sel');sel.has(c.id)?sel.delete(c.id):sel.add(c.id);render()};
+  $('hand').appendChild(e)});
+ const cs=H[0].filter(c=>sel.has(c.id));
+ $('play').textContent=xm?'渡す':'出す';
+ $('play').disabled=over||!(xm?cs.length==xm.n:turn==0&&ok(cs));
+ $('pass').disabled=over||!!xm||!(turn==0&&field);
+ $('rd').style.display=rd>0&&!hm&&!over&&!xm?'':'none';$('ht').style.display=S.inv.hint&&!over&&!xm?'':'none';$('ht').textContent='ヒント('+hl+')';$('ht').disabled=!(turn==0&&hl>0)}
+function tick(){render();clearTimeout(tm);if(over||xm)return;if(turn!=0)tm=setTimeout(()=>cpu(turn),900)}
+function clearF(){field=null;bk=false;shib=null;passes=0}
+function doPlay(p,cs){
+ cs=cs.slice().sort((a,b)=>a.r-b.r);
+ const v=validate(cs),suits=cs.filter(c=>c.r<16).map(c=>c.s).sort();
+ H[p]=H[p].filter(c=>!cs.includes(c));sel.clear();if(p==0)hm=true;
+ let m=NM[p]+'：'+cs.map(lb).join(' ')+(v.t=='s'?'（階段）':'');
+ sfx(p==0?'play':'play2');if(p==0){if(v.t=='s'){unlock('stair');ev('stair',100)}if(field&&field.key==16&&field.n==1&&cs.length==1&&cs[0].s==0&&cs[0].r==3){unlock('sp3');ev('sp3',150)}}
+ if(R.shib&&field&&!shib&&suits.length&&field.suits.length==suits.length&&suits.every((x,i)=>x==field.suits[i])){shib=suits;m+='  しばり！'}
+ field={...v,cards:cs,suits};last=p;passes=0;
+ if(R.revo&&v.t=='g'&&cs.length>=4){rev=!rev;m+='  革命！';sfx('rev');if(p==0){unlock('rev');ev('rev',200)}}
+ if(R.eleven&&v.t=='g'&&v.r==11){bk=!bk;m+='  11バック！';sfx('rev');if(p==0){unlock('back');ev('back',100)}}
+ const clear=R.eight&&v.t=='g'&&v.r==8,skip=R.five&&v.t=='g'&&v.r==5;
+ if(clear){clearF();m+='  8切り！';sfx('cut');if(p==0){unlock('cut');ev('cut',50)}}
+ if(!act(p)){out.push(p);
+  if(R.foul&&(cs.some(c=>c.r==16)||(v.t=='g'&&v.r==8))){fl.add(p);m+='  反則上がり…最下位！'}else m+='  上がり！'}
+ if(nAct()<=1){say(m);H.forEach((h,i)=>{if(h.length&&!out.includes(i))out.push(i)});return finish()}
+ turn=clear?(act(p)?p:nextA(p)):nextA(p);
+ if(skip&&!clear){turn=nextA(turn);m+='  5スキップ！';sfx('skip');if(p==0){unlock('five');ev('five',50)}}
+ if(field&&turn==last&&act(last)){clearF();m+='  → 場が流れた'}
+ say(m);tick()}
+function doPass(p){
+ sfx('pass');if(p==0)hm=true;passes++;
+ const need=nAct()-(act(last)?1:0);
+ if(passes>=need){clearF();turn=act(last)?last:nextA(last);say(NM[p]+'：パス → 場が流れました（'+NM[turn]+'の番）')}
+ else{say(NM[p]+'：パス');turn=nextA(p)}
+ tick()}
+function cpu(p){
+ const L=legal(H[p]);if(!L.length)return doPass(p);
+ const D=S.d;
+ if(D==0){if(field&&Math.random()<.3)return doPass(p);return doPlay(p,L[Math.random()*L.length|0])}
+ const cost=cs=>{const v=validate(cs),j=cs.filter(c=>c.r==16).length;
+  return sr(v.key)+j*40-(field?0:cs.length*1.5)};
+ L.sort((a,b)=>cost(a)-cost(b));
+ let b=L[0];
+ const danger=D>=2&&H.some((h,i)=>i!=p&&act(i)&&h.length<=(D==3?3:2));
+ if(danger){const nj=L.filter(c=>!c.some(x=>x.r==16)),pool=nj.length?nj:L;
+  return doPlay(p,pool.reduce((m,c)=>cost(c)>cost(m)?c:m))}
+ if(D==3&&R.revo){const w=H[p].reduce((s,c)=>s+sr(c.r),0)/H[p].length;
+  const rv=L.find(c=>c.length>=4&&validate(c).t=='g');if(rv&&w<8)return doPlay(p,rv)}
+ if(field&&b.some(c=>c.r==16)&&H[p].length>3)return doPass(p);
+ doPlay(p,b)}
+function finish(){over=true;
+ const ord=[...out.filter(p=>!fl.has(p)),...out.filter(p=>fl.has(p))],pr=prev?prev.indexOf(0):-1,hr=ord.indexOf(0);
+ prev=ord;const base=[1000,600,300,100][hr]+gs;
+ let mw=1;if(hr==0)mw+=(evs.has('rev')?.5:0)+(evs.has('stair')?.2:0)+(evs.has('back')?.1:0);
+ const sk=hr==0?Math.min(3,1+.1*S.st):1,gain=Math.round(base*mw*sk*D_PT[S.d]*(S.inv.purse?1.25:1));
+ const bd='基本'+base+'（順位＋イベント'+gs+'）×勝利ボーナス'+mw.toFixed(1)+'×連勝'+sk.toFixed(1)+'×難易度'+D_PT[S.d]+(S.inv.purse?'×財布1.25':'');
+ S.g++;S.r[hr]++;S.pt+=gain;S.money+=gain;
+ if(hr==0){S.w[S.d]++;S.st++;S.best=Math.max(S.best,S.st);unlock('first');unlock('king');if(S.st>=3)unlock('win3');if(S.d==3)unlock('oni');if(pr==3)unlock('rise')}else if(!(hr==1&&S.inv.guard))S.st=0;
+ if(S.g>=50)unlock('g50');if(S.pt>=10000)unlock('pt1000');save();render();sfx(hr==0?'win':'lose');
+ $('res').innerHTML='<h2 style="color:var(--gold);margin:0">結果</h2>'+ord.map((p,i)=>TT[i]+'：'+NM[p]+(fl.has(p)?'（反則上がり）':'')).join('<br>')+'<br><p style="margin:6px 0;font-size:13px">難易度：'+D_NM[S.d]+'　連勝：'+S.st+'</p><p style="margin:6px 0">今回スコア <b style="color:var(--gold)">'+$m(gain)+'</b> → 所持金 '+$m(S.money)+'<br><small>'+bd+'</small></p>'+nw.map(x=>'<p style="margin:2px 0;color:var(--gold)">🏆 '+x+'</p>').join('');nw=[];updLv();
+ setTimeout(()=>$('end').style.display='flex',700)}
+$('play').onclick=()=>{const cs=H[0].filter(c=>sel.has(c.id));
+ if(xm){if(cs.length==xm.n){H[0]=H[0].filter(c=>!sel.has(c.id));H[xm.to].push(...cs);sel.clear();xm=null;sortAll();say('交換完了！　'+NM[turn]+'から開始');tick()}return}
+ if(turn==0&&ok(cs))doPlay(0,cs)};
+$('pass').onclick=()=>{if(turn==0&&field)doPass(0)};
+$('rl').innerHTML=RULES.map(([k,n,d])=>'<label><input type="checkbox" data-k="'+k+'" checked><b>'+n+'</b><span>'+d+'</span></label>').join('');
+$('rl').onchange=e=>{R[e.target.dataset.k]=e.target.checked?1:0;if(H){field=field&&ok([])?field:field;render()}};
+$('rb').onclick=()=>$('rm').style.display='flex';
+$('df').value=S.d;applyTheme();updSb();$('sb').onclick=()=>{S.snd=S.snd?0:1;save();updSb();sfx('sel')};$('shp').onclick=showSp;$('rd').onclick=()=>{if(rd>0&&!hm&&!xm&&!over){sfx('sel');start(rd-1)}};
+$('ht').onclick=()=>{if(turn!=0||hl<=0||over||xm)return;const L=legal(H[0]);if(!L.length)return toast('出せる手がありません。パスしましょう');
+ const cst=cs=>{const v=validate(cs),j=cs.filter(c=>c.r==16).length;return sr(v.key)+j*40-(field?0:cs.length*1.5)};L.sort((a,b)=>cst(a)-cst(b));hl--;sfx('sel');
+ if(field&&L[0].some(c=>c.r==16)&&H[0].length>3){toast('ヒント：パスがおすすめです');return render()}sel=new Set(L[0].map(c=>c.id));render()};$('df').onchange=()=>{S.d=+$('df').value;save()};$('kb').onclick=showRc;
+start();
+</script></body></html>
