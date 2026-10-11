@@ -26,7 +26,7 @@ h1{font-size:18px;margin:4px 0 8px;color:var(--gold);letter-spacing:.2em;text-al
 .c.j{color:#6a2fc4;font-size:11px}
 #hand .c{margin:2px -6px;cursor:pointer}
 #hand .c.s{transform:translateY(-14px);outline:3px solid var(--gold)}
-#btns{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}#ht,#rd{background:#fff3;color:var(--tx)}#cfm{white-space:pre-line}#skb{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}.sk{padding:6px 12px;font-size:12px;background:#6a2fc4;color:#fff}
+#btns{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}#ht,#rd{background:#fff3;color:var(--tx)}#cfm{white-space:pre-line}#opt{display:flex;gap:6px;justify-content:center;margin-bottom:6px;flex-wrap:wrap}.tb option{color:#222}#bar{flex-wrap:wrap}@keyframes fl{0%{box-shadow:0 0 0 0 #ff5a5a}100%{box-shadow:0 0 34px 18px #0000}}.flash{animation:fl .8s}.c[data-cd=pink]{background:#ffe3ee;box-shadow:0 0 0 2px #ff7aa8}.c[data-cd=steel]{background:linear-gradient(#e8edf2,#9aa7b4)}.c[data-cd=rainbow]{background:linear-gradient(135deg,#ffd6d6,#fff3b0,#c8ffd4,#c8e4ff,#e6c8ff);box-shadow:0 0 6px #fff}@media(max-width:520px){#app{padding-top:70px}}#skb{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}.sk{padding:6px 12px;font-size:12px;background:#6a2fc4;color:#fff}
 button{font:inherit;font-weight:700;padding:10px 26px;border:0;border-radius:24px;background:var(--gold);color:#222;cursor:pointer}
 button:disabled{opacity:.35;cursor:default}
 #pass{background:#fff3;color:var(--tx)}
@@ -37,9 +37,9 @@ button:disabled{opacity:.35;cursor:default}
 #rm b{margin:0 6px;color:var(--gold)}#rm span{opacity:.85}
 @media(max-width:520px){.c{width:40px;height:60px;font-size:13px}#hand .c{margin:2px -8px}.opp{font-size:11px}}
 </style></head><body>
-<div id="bar"><select id="df" class="tb" title="難易度"><option value="0">かんたん</option><option value="1">ふつう</option><option value="2">むずかしい</option><option value="3">鬼</option></select><span class="sp"></span><button id="shp" class="tb">ショップ</button><button id="kb" class="tb">記録</button><button id="rb" class="tb">ルール</button><button id="sb" class="tb"></button></div><div id="toast"></div>
+<div id="bar"><select id="df" class="tb" title="難易度"><option value="0">かんたん</option><option value="1">ふつう</option><option value="2">むずかしい</option><option value="3">鬼</option></select><span class="sp"></span><button id="shp" class="tb">ショップ</button><button id="kb" class="tb">記録</button><button id="rb" class="tb">ルール</button><button id="sb" class="tb"></button><button id="bm" class="tb"></button></div><div id="toast"></div>
 <div id="app">
-<h1>♠ 大富豪 ♥</h1><div id="lv"></div>
+<h1>♠ 大富豪 ♥</h1><div id="lv"></div><div id="opt"><select id="md" class="tb" title="モード"><option value="normal">通常</option><option value="rank">ランク戦</option><option value="ch1">挑戦：スキル禁止</option><option value="ch2">挑戦：ジョーカーなし</option><option value="ch3">デイリー固定配札(鬼)</option><option value="b1">ボス：革命将軍</option><option value="b2">ボス：しばり公</option></select><select id="bt" class="tb" title="ベット"><option value="0">ベットなし</option><option value="1000">ベット $1,000</option><option value="5000">ベット $5,000</option><option value="20000">ベット $20,000</option></select></div>
 <div id="opps"></div>
 <div id="field"><div id="rev"></div><div id="fc"></div></div>
 <div id="log"></div>
@@ -52,12 +52,13 @@ button:disabled{opacity:.35;cursor:default}
 <div id="rl"></div><div style="text-align:center;margin-top:12px"><button onclick="$('rm').style.display='none'">閉じる</button></div></div></div>
 <div id="dt" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">データ管理</h2><p style="font-size:12px;margin:0 0 6px">引継ぎコードを書き出して、別の端末やブラウザで読み込めます。</p><textarea id="dtx" rows="5" style="width:100%;font-size:11px;background:#000;color:var(--tx);border:1px solid #fff4;border-radius:8px" placeholder="ここに引継ぎコードを貼り付け"></textarea><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:10px"><button onclick="dtOut()">書き出し</button><button onclick="dtCopy()">コピー</button><button onclick="dtIn()">読み込み</button><button onclick="resetS()" style="background:#c0392b;color:#fff">リセット</button></div><div style="text-align:center;margin-top:10px"><button onclick="$('dt').style.display='none'">閉じる</button></div></div></div>
 <div id="cf" class="ov" style="z-index:30"><div style="text-align:center"><p id="cfm" style="line-height:1.7"></p><button id="cfy">はい</button> <button id="cfn" style="background:#fff3;color:var(--tx)">いいえ</button></div></div>
+<div id="gc" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">ガチャ</h2><div id="gcb"></div><div style="text-align:center;margin-top:12px"><button onclick="$('gc').style.display='none'">閉じる</button></div></div></div>
 <div id="sp" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">ショップ</h2><div id="spb"></div><div style="text-align:center;margin-top:12px"><button onclick="$('sp').style.display='none'">閉じる</button></div></div></div>
-<div id="rc" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">記録</h2><div id="rcb"></div><div style="text-align:center;margin-top:12px"><button onclick="showDt()" style="background:#fff3;color:var(--tx)">データ管理</button> <button onclick="$('rc').style.display='none'">閉じる</button></div></div></div>
+<div id="rc" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">記録</h2><div id="rcb"></div><div style="text-align:center;margin-top:12px"><button onclick="presT()">転生</button> <button onclick="cardCp()" style="background:#fff3;color:var(--tx)">スコアカード</button> <button onclick="showDt()" style="background:#fff3;color:var(--tx)">データ管理</button> <button onclick="$('rc').style.display='none'">閉じる</button></div></div></div>
 <script>
 const SU=['♠','♥','♦','♣'],RL={11:'J',12:'Q',13:'K',14:'A',15:'2'};
 const NM=['あなた','CPU 太郎','CPU 花子','CPU 次郎'],TT=['大富豪','富豪','貧民','大貧民'];
-const R={eight:1,revo:1,eleven:1,shib:1,stair:1,sp3:1,five:1,foul:1,exch:1};
+const R={eight:1,revo:1,eleven:1,shib:1,stair:1,sp3:1,five:1,foul:1,exch:1,nine:1,fall:1,draft:0};
 const RULES=[['eight','8切り','8を出すと場が流れ、もう一度自分の番。'],
 ['revo','革命','同じ数字を4枚以上同時に出すと、強弱が逆転。'],
 ['eleven','11バック','Jを出すと、場が流れるまで強弱が逆転。'],
@@ -66,11 +67,11 @@ const RULES=[['eight','8切り','8を出すと場が流れ、もう一度自分�
 ['sp3','スペ3返し','ジョーカー単体を♠3で返せる。'],
 ['five','5スキップ','5を出すと次の人を飛ばす。'],
 ['foul','反則上がり','8かジョーカーで上がると最下位扱い。'],
-['exch','カード交換','2戦目以降：大貧民→大富豪に最強2枚（大富豪は好きな2枚を返す）、貧民⇔富豪は1枚。大貧民から開始。']];
+['nine','9リバース','9を出すと順番の回る向きが逆になる。'],['fall','都落ち','前回の大富豪が1位で上がれないと、大貧民に転落。'],['draft','ルールドラフト','毎戦ランダムで特殊ルールが3つだけ有効になる（8切り・革命は常時）。'],['exch','カード交換','2戦目以降：大貧民→大富豪に最強2枚（大富豪は好きな2枚を返す）、貧民⇔富豪は1枚。大貧民から開始。']];
 let H,field,last,passes,turn,rev,bk,shib,out,fl,sel,over,prev=null,xm=null;
 const $=id=>document.getElementById(id);
 const $m=n=>'$'+Math.round(n).toLocaleString();
-let gs=0,evs=new Set(),ms=null,msd=0,AC,rd=0,hl=0,hm=false,tm,skl={},su=0;
+let gs=0,evs=new Set(),ms=null,msd=0,AC,rd=0,hl=0,hm=false,tm,skl={},su=0,dir=1,eD=1,mode='normal',bet=0,boss=null,Rsave=null,tr=[0,0,0,0],csk=[0,0,0,0],bgt=0;
 const SHOP=[['bg','felt','フェルト（標準）',0,'radial-gradient(circle at 50% 40%,#0b3d2a,#06261a)'],
 ['bg','night','星空',3000,'radial-gradient(1.5px 1.5px at 20% 30%,#fff,#0000),radial-gradient(2px 2px at 70% 20%,#fff,#0000),radial-gradient(1.5px 1.5px at 40% 75%,#fff,#0000),radial-gradient(2px 2px at 85% 60%,#fff,#0000),radial-gradient(1.5px 1.5px at 10% 80%,#fff,#0000),linear-gradient(#0a0a2e,#1b1b4b)'],
 ['bg','sunset','夕焼け',5000,'linear-gradient(#1e2a5a,#7a3b6e 45%,#ff7b54 80%,#ffd27a)'],
@@ -89,39 +90,78 @@ const SHOP=[['bg','felt','フェルト（標準）',0,'radial-gradient(circle at
 ['ut','peek','【スキル】透視：試合中1度、CPU全員の手札を見る',10000,'👁️'],
 ['ut','jk','【スキル】ジョーカー化：試合中1度、手札1枚をジョーカーに変える',40000,'🃏']];
 const SK=[['lvup','⬆強化',1],['cut','🌀場流し',2],['rv','🔄革命',1],['peek','👁透視',1],['jk','🃏ジョーカー化',1]];
+SHOP.push(['ut','slot','スキル枠拡張：スキルの装備枠+1（最大3）',50000,'🎰'],
+['bg','aurora','オーロラ(R)',-1,'linear-gradient(160deg,#021a2b,#0b6e5b 40%,#5b2a86 70%,#021a2b)'],
+['bg','sakura','桜(R)',-1,'radial-gradient(circle at 30% 20%,#ffd6e5,#0000 40%),radial-gradient(circle at 80% 70%,#ffb7d1,#0000 40%),linear-gradient(#3a1b2c,#7a3b55)'],
+['bg','lava','溶岩(SR)',-1,'radial-gradient(circle at 50% 120%,#ff5a00,#7a1100 45%,#1a0505)'],
+['bg','void','虚空(UR)',-1,'radial-gradient(circle at 50% 50%,#2a0a4a,#000 70%)'],
+['cd','pink','ピンクカード(R)',-1],['cd','steel','スチールカード(SR)',-1],['cd','rainbow','レインボーカード(UR)',-1]);
+const MM={normal:1,rank:1.2,ch1:1.5,ch2:1.3,ch3:1.5,b1:3,b2:3};
+const TR=[['慎重','c'],['革命好き','r'],['強気','a'],['堅実','s']],LC=[3,6,10],GP={R:['aurora','sakura','pink'],SR:['lava','steel'],UR:['void','rainbow']},GR={R:5,SR:20,UR:80};
+const DQ=[['win','1回1位になる',1,3000],['play','3戦する',3,2500],['stair','階段を出す',1,2000],['rev','革命を起こす',1,2500],['noskill','スキル未使用で1位',1,4000],['cut','8切りを決める',2,1500],['back','11バックを決める',1,2000]];
+const slots=()=>2+(S.inv.slot?1:0);
+const dayNum=()=>Math.floor((Date.now()-new Date().getTimezoneOffset()*60000)/864e5);
+function seeded(){let x=dayNum()*9301+49297;return()=>{x=(x*9301+49297)%233280;return x/233280}}
+function migr(){S.sk=S.sk||[];S.sl=S.sl||{};S.cd=S.cd||{};S.h=S.h||[];S.bs=S.bs||{};S.hi=S.hi||{};S.dq=S.dq||{d:'',l:[],p:{},ok:{}};
+ if(!S.sk.length)S.sk=SK.map(k=>k[0]).filter(k=>S.inv[k]).slice(0,slots())}
+function daily(){const k=''+dayNum();if(S.dq.d==k)return;
+ S.dq={d:k,l:DQ.map((q,i)=>[q[0],(dayNum()*7+i*13)%17]).sort((a,b)=>a[1]-b[1]).slice(0,3).map(x=>x[0]),p:{},ok:{}};save()}
+function prog(id,n){daily();if(!S.dq.l.includes(id)||S.dq.ok[id])return;const q=DQ.find(x=>x[0]==id);
+ S.dq.p[id]=(S.dq.p[id]||0)+n;if(S.dq.p[id]>=q[2]){S.dq.ok[id]=1;S.money+=q[3];toast('デイリー達成！'+q[1]+' +'+$m(q[3]));sfx('ach')}save()}
+function rk(){let n='ブロンズ';[[1100,'シルバー'],[1250,'ゴールド'],[1400,'プラチナ'],[1600,'ダイヤ'],[1800,'マスター']].forEach(x=>{if(S.rt>=x[0])n=x[1]});return n}
+const hist=()=>S.h.slice(-20).map(r=>['🥇','🥈','🥉','▫️'][r]).join('')||'なし';
+const dqh=()=>{daily();return S.dq.l.map(id=>{const q=DQ.find(x=>x[0]==id);return'<p>'+(S.dq.ok[id]?'✅':'⬜')+' '+q[1]+'（'+Math.min(S.dq.p[id]||0,q[2])+'/'+q[2]+'）+'+$m(q[3])+'</p>'}).join('')};
+function skUi(id){if(!SK.find(z=>z[0]==id)||!S.inv[id])return['',''];const lv=S.sl[id]||0,on=S.sk.includes(id);
+ return['<br><small>Lv'+lv+(on?' ・装備中':'')+'</small>','<div style="display:flex;flex-direction:column;gap:4px"><button onclick="eqSk(\''+id+'\')">'+(on?'外す':'装備')+'</button><button onclick="lvSk(\''+id+'\')" style="background:#fff3;color:var(--tx)">'+(lv>=3?'MAX':'Lv↑'+LC[lv]+'💎')+'</button></div>']}
+function eqSk(id){if(S.sk.includes(id))S.sk=S.sk.filter(x=>x!=id);else if(S.sk.length<slots())S.sk.push(id);else return toast('スキル枠が一杯です');sfx('sel');save();showSp()}
+function lvSk(id){const lv=S.sl[id]||0;if(lv>=3)return;if(S.sh<LC[lv])return toast('💎が足りません（ガチャで入手）');S.sh-=LC[lv];S.sl[id]=lv+1;sfx('buy');save();showSp()}
+function showGc(){const L=S.lp||[],C={R:'#9cf',SR:'#fc6',UR:'#f6f'};
+ $('gcb').innerHTML='<p style="font-size:14px;margin:0">所持金：<b style="color:var(--gold)">'+$m(S.money)+'</b>　💎'+S.sh+'　UR天井まで'+(50-S.gp)+'回</p><p style="font-size:12px;opacity:.8">R70%/SR25%/UR5%。10連の最後はSR以上確定。重複は💎に変換（R+6・SR+21・UR+81）。💎はスキルのLv↑に使えます。当たった物はショップで装備できます。</p><div style="text-align:center;margin:8px"><button onclick="gacha(1)">1回 $3,000</button> <button onclick="gacha(10)">10連 $27,000</button></div>'+L.map(r=>'<p style="margin:3px 0;color:'+C[r[0]]+'">['+r[0]+'] '+r[1]+(r[2]?' NEW!':' → 重複')+'</p>').join('');$('gc').style.display='flex'}
+function gacha(n){const c=n==10?27000:3000;if(S.money<c)return toast('お金が足りません');S.money-=c;const res=[];
+ for(let i=0;i<n;i++){const r=Math.random();let t=S.gp>=49||r<.05?'UR':r<.3?'SR':'R';if(n==10&&i==9&&t=='R')t='SR';S.gp=t=='UR'?0:S.gp+1;
+  const id=GP[t][Math.random()*GP[t].length|0],nm=SHOP.find(x=>x[1]==id)[2],nw=!S.inv[id];S.inv[id]=1;S.sh+=nw?1:1+GR[t];res.push([t,nm,nw])}
+ S.lp=res;sfx(res.some(x=>x[0]=='UR')?'win':'buy');save();updLv();showGc()}
+function presT(){const need=S.pa+100000;if(S.pt<need)return toast('転生には累計獲得があと '+$m(need-S.pt)+' 必要です');
+ ask('転生すると、所持金・スキル・有利アイテムが全てリセットされ、スコア倍率が永続で+25%されます。（背景・カードは残ります）\n転生しますか？',()=>{S.pr++;S.pa=S.pt;S.money=0;SK.forEach(k=>delete S.inv[k[0]]);['redo','hint','guard','luck','purse','slot'].forEach(k=>delete S.inv[k]);S.sk=[];S.sl={};S.cd={};save();updLv();showRc();sfx('win')})}
+function cardCp(){const t='【大富豪 スコアカード】累計$'+Math.round(S.pt).toLocaleString()+' / 最高連勝'+S.best+' / レート'+S.rt+'('+rk()+') / 転生'+S.pr+'回 / '+S.g+'戦'+S.r[0]+'勝';
+ try{navigator.clipboard.writeText(t)}catch(e){}toast('スコアカードをコピーしました')}
+function flash(){const e=$('field');e.classList.remove('flash');void e.offsetWidth;e.classList.add('flash')}
+function bgmCtl(){clearInterval(bgt);bgt=0;if(!S.bgm)return;
+ try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();const P=[262,330,392,330,294,349,440,349,330,392,494,392,262,330,392,523];let i=0;
+  bgt=setInterval(()=>{TN(P[i%16],0,.4,'triangle',.025);if(i%4==0)TN(P[i%16]/2,0,.8,'sine',.03);i++},420)}catch(e){}}
 const TN=(f,t,d,ty='square',v=.07,f2)=>{const o=AC.createOscillator(),g=AC.createGain(),n=AC.currentTime+t;o.type=ty;o.frequency.setValueAtTime(f,n);if(f2)o.frequency.exponentialRampToValueAtTime(f2,n+d);g.gain.setValueAtTime(v,n);g.gain.exponentialRampToValueAtTime(.001,n+d);o.connect(g);g.connect(AC.destination);o.start(n);o.stop(n+d+.02)};
 const SFX={sel:()=>TN(880,0,.05,'triangle',.06),play:()=>TN(300,0,.08,'square',.07,120),play2:()=>TN(240,0,.06,'square',.04,100),pass:()=>TN(220,0,.12,'sine',.07,150),
 rev:()=>[0,.1,.2].forEach((t,i)=>TN(500-i*120,t,.15,'sawtooth',.06,200)),cut:()=>{TN(1200,0,.15,'sawtooth',.06,200);TN(100,0,.2,'sine',.1)},skip:()=>TN(400,0,.2,'triangle',.07,900),
 win:()=>[523,659,784,1047].forEach((f,i)=>TN(f,i*.12,.25,'square',.07)),lose:()=>[392,330,262,196].forEach((f,i)=>TN(f,i*.18,.3,'triangle',.08)),
 ach:()=>[784,988,1319].forEach((f,i)=>TN(f,i*.09,.2,'sine',.09)),buy:()=>{TN(1318,0,.08,'square',.06);TN(1760,.08,.2,'square',.06)}};
 function sfx(k){if(!S.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();SFX[k]()}catch(e){}}
-const updSb=()=>$('sb').textContent=S.snd?'🔊':'🔇';
+const updSb=()=>{$('sb').textContent=S.snd?'🔊':'🔇';$('bm').textContent=S.bgm?'♪':'♪×'};
 function applyTheme(){const b=SHOP.find(x=>x[1]==S.eq.bg)||SHOP[0];document.body.style.background=b[4];document.body.style.backgroundAttachment='fixed'}
-function showSp(){let h='<p style="font-size:14px;margin:0">所持金：<b style="color:var(--gold)">'+$m(S.money)+'</b></p>';
+function showSp(){let h='<p style="font-size:14px;margin:0">所持金：<b style="color:var(--gold)">'+$m(S.money)+'</b>　💎'+S.sh+'　スキル枠 '+S.sk.length+'/'+slots()+'　<button onclick="showGc()" style="padding:4px 12px;font-size:12px">ガチャ</button></p>';
  [['bg','背景'],['cd','カードデザイン'],['ut','有利アイテム']].forEach(([k,t])=>{h+='<h3 style="margin:12px 0 2px;font-size:14px">'+t+'</h3>';
-  SHOP.filter(x=>x[0]==k).forEach(x=>{const own=x[3]==0||S.inv[x[1]],on=k=='ut'?!!S.inv[x[1]]:S.eq[k]==x[1];
-   h+='<div class="si"><div class="sw" style="'+(k=='bg'?'background:'+x[4]:'font-size:22px')+'">'+(k=='ut'?x[4]:'')+(k=='cd'?'<span class="c" data-cd="'+x[1]+'" style="width:28px;height:40px;font-size:11px">A<i style="font-size:14px">♠</i></span>':'')+'</div><div class="nm">'+x[2]+'</div>'+
+  SHOP.filter(x=>x[0]==k&&(x[3]>=0||S.inv[x[1]])).forEach(x=>{const own=x[3]==0||S.inv[x[1]],on=k=='ut'?!!S.inv[x[1]]:S.eq[k]==x[1];
+   h+='<div class="si"><div class="sw" style="'+(k=='bg'?'background:'+x[4]:'font-size:22px')+'">'+(k=='ut'?x[4]:'')+(k=='cd'?'<span class="c" data-cd="'+x[1]+'" style="width:28px;height:40px;font-size:11px">A<i style="font-size:14px">♠</i></span>':'')+'</div><div class="nm">'+x[2]+skUi(x[1])[0]+'</div>'+skUi(x[1])[1]+
    (on?'<span class="badge">'+(k=='ut'?'所持中':'装備中')+'</span>':'<button onclick="shopAct(\''+x[1]+'\')">'+(own?'装備':'購入 '+$m(x[3]))+'</button>')+'</div>'})});
  $('spb').innerHTML=h;$('sp').style.display='flex'}
 function shopAct(id){const x=SHOP.find(y=>y[1]==id);
  if(!(x[3]==0||S.inv[id])){if(S.money<x[3])return toast('お金が足りません');S.money-=x[3];S.inv[id]=1;sfx('buy')}else sfx('sel');
  if(x[0]!='ut')S.eq[x[0]]=id;save();applyTheme();updLv();showSp();render()}
-function ev(k,pt){gs+=pt;evs.add(k);
+function ev(k,pt){gs+=pt;evs.add(k);prog(k,1);
  if(ms&&k==ms[0]&&!msd){msd=1;gs+=500;toast('ミッション達成 +500');sfx('ach')}updLv()}
 const D_NM=['かんたん','ふつう','むずかしい','鬼'],D_PT=[.5,1,1.5,2];
 const LV=[[0,'平民'],[5000,'商人'],[15000,'貴族'],[40000,'大臣'],[100000,'将軍'],[250000,'大富豪王']];
 const ACH=[['first','初勝利','1位になる'],['king','大富豪','大富豪（1位）で終える'],['win3','3連勝','3連続で1位'],['rise','下剋上','大貧民の次の対戦で1位になる'],['oni','鬼退治','鬼で1位になる'],['rev','革命児','革命を起こす'],['stair','階段使い','階段を出す'],['back','11バック','11バックを決める'],['cut','8切りの達人','8切りを決める'],['sp3','スペ3の守り','スペ3返しを決める'],['five','スキップ王','5スキップを決める'],['g50','古参','通算50戦する'],['pt1000','富豪への道','累計$10,000を稼ぐ']];
-const S0=()=>({g:0,w:[0,0,0,0],r:[0,0,0,0],pt:0,money:0,st:0,best:0,ach:{},d:1,snd:1,inv:{},eq:{bg:'felt',cd:'classic'}});
+const S0=()=>({g:0,w:[0,0,0,0],r:[0,0,0,0],pt:0,money:0,st:0,best:0,ach:{},d:1,snd:1,inv:{},eq:{bg:'felt',cd:'classic'},rt:1000,pr:0,pa:0,sk:[],sl:{},cd:{},sh:0,gp:0,h:[],dq:{d:'',l:[],p:{},ok:{}},bs:{},hi:{},bgm:0});
 let S=S0(),nw=[],rq=0;
 try{Object.assign(S,JSON.parse(localStorage.getItem('daifugo')||'{}'))}catch(e){}
 const save=()=>{try{localStorage.setItem('daifugo',JSON.stringify(S))}catch(e){}};
 function toast(t){const e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>e.style.display='none',2200)}
 function unlock(id){if(S.ach[id])return;S.ach[id]=1;sfx('ach');const a=ACH.find(x=>x[0]==id);nw.push(a[1]);toast('🏆 実績：'+a[1]);save()}
-function updLv(){let n=LV[0][1];LV.forEach(l=>{if(S.pt>=l[0])n=l[1]});$('lv').innerHTML='称号：'+n+'　💵'+$m(S.money)+'　連勝 '+S.st+'　今回 '+gs+(ms?'<br>ミッション：'+ms[2]+(msd?'（達成！）':'（+500）'):'')}
-function showRc(){$('rcb').innerHTML='<p>対戦数：'+S.g+'　累計獲得：'+$m(S.pt)+'　所持金：'+$m(S.money)+'　最高連勝：'+S.best+'</p><p>順位：'+TT.map((t,i)=>t+' '+S.r[i]).join(' / ')+'</p><p>難易度別1位：'+D_NM.map((t,i)=>t+' '+S.w[i]).join(' / ')+'</p><hr>'+ACH.map(a=>'<p class="'+(S.ach[a[0]]?'':'a')+'">'+(S.ach[a[0]]?'🏆':'🔒')+' <b>'+a[1]+'</b> '+a[2]+'</p>').join('');$('rc').style.display='flex'}
+function updLv(){let n=LV[0][1];LV.forEach(l=>{if(S.pt>=l[0])n=l[1]});$('lv').innerHTML='称号：'+n+(S.pr?'（転生'+S.pr+'）':'')+'　💵'+$m(S.money)+'　連勝 '+S.st+'　R'+S.rt+'　今回 '+gs+(ms?'<br>ミッション：'+ms[2]+(msd?'（達成！）':'（+500）'):'')}
+function showRc(){$('rcb').innerHTML='<p>対戦数：'+S.g+'　累計獲得：'+$m(S.pt)+'　所持金：'+$m(S.money)+'　最高連勝：'+S.best+'</p><p>順位：'+TT.map((t,i)=>t+' '+S.r[i]).join(' / ')+'</p><p>難易度別1位：'+D_NM.map((t,i)=>t+' '+S.w[i]).join(' / ')+'</p><p>レート：'+S.rt+'（'+rk()+'）　転生：'+S.pr+'回</p><p>直近の順位：'+hist()+'</p><hr><p><b>デイリー課題</b></p>'+dqh()+'<hr>'+ACH.map(a=>'<p class="'+(S.ach[a[0]]?'':'a')+'">'+(S.ach[a[0]]?'🏆':'🔒')+' <b>'+a[1]+'</b> '+a[2]+'</p>').join('');$('rc').style.display='flex'}
 function ask(m,f){$('cfn').style.display='';$('cfy').textContent='はい';$('cfm').textContent=m;$('cf').style.display='flex';$('cfy').onclick=()=>{$('cf').style.display='none';f()};$('cfn').onclick=()=>$('cf').style.display='none'}
 function showDt(){$('rc').style.display='none';$('dt').style.display='flex'}
-const afterData=()=>{save();applyTheme();updSb();$('df').value=S.d;updLv()};
+const afterData=()=>{migr();save();applyTheme();updSb();$('df').value=S.d;updLv()};
 function dtOut(){ask('引継ぎコードを書き出しますか？\nコードには全てのデータが含まれます。他人に見せないでください。',()=>{$('dtx').value='DF1:'+btoa(unescape(encodeURIComponent(JSON.stringify(S))));toast('書き出しました。コピーして保管してください')})}
 function dtCopy(){const t=$('dtx');if(!t.value)return toast('先に「書き出し」を行ってください');t.select();try{navigator.clipboard.writeText(t.value)}catch(e){document.execCommand('copy')}toast('コピーしました')}
 function dtIn(){const t=$('dtx').value.trim();let o;
@@ -131,7 +171,7 @@ function resetS(){ask('全てのデータ（スコア・所持金・購入品・
 const eff=()=>rev!=bk;
 const sr=r=>r==16?99:(eff()?18-r:r);
 const act=p=>H[p].length>0;
-const nextA=p=>{let i=p;do{i=(i+1)%4}while(!act(i));return i};
+const nextA=p=>{let i=p;do{i=(i+dir+4)%4}while(!act(i));return i};
 const nAct=()=>H.filter(h=>h.length).length;
 const lb=c=>c.r==16?'JOKER':SU[c.s]+(RL[c.r]||c.r);
 function validate(cs){const n=cs.length;if(!n)return null;
@@ -162,11 +202,21 @@ function legal(h){const g={},J=h.filter(c=>c.r==16),P=[];
    if(cs.length&&jn<=J.length){cs=cs.concat(J.slice(0,jn));if(ok(cs))P.push(cs)}}}
  return P}
 const sortAll=()=>H.forEach(h=>h.sort((a,b)=>a.r-b.r||a.s-b.s));
-function start(k){rd=typeof k=='number'?k:(S.inv.redo?1:0);hl=S.inv.hint?3:0;hm=false;skl={};su=0;SK.forEach(k=>{if(S.inv[k[0]])skl[k[0]]=k[2]});
+function start(k){const rdl=typeof k=='number';
+ rd=rdl?k:(S.inv.redo?1:0);hl=S.inv.hint?3:0;hm=false;dir=1;daily();
+ if(!rdl){if(Rsave){Object.assign(R,Rsave);Rsave=null}
+  mode=$('md').value;if(mode[0]=='b'&&S.best<3){mode='normal';toast('ボス戦は3連勝で解放されます')}
+  boss=mode[0]=='b'?mode:null;eD=mode=='rank'?2:(mode=='ch3'||boss)?3:S.d;if(mode=='ch3')rd=0;
+  bet=Math.min(+$('bt').value,S.money);S.money-=bet;save();
+  if(R.draft||boss){Rsave={...R};if(boss=='b2'){R.shib=1;R.stair=0}
+   if(R.draft){const pl=['eleven','shib','stair','sp3','five','nine','fall','foul'].sort(()=>Math.random()-.5);pl.forEach((q,i)=>R[q]=i<3?1:0);toast('今回の特殊ルール：'+pl.slice(0,3).map(q=>RULES.find(x=>x[0]==q)[1]).join('・'))}}
+  tr=[0,1,2,3].map(()=>Math.random()*TR.length|0);csk=[0,1,1,1].map(x=>x&&eD>0?1:0)}
+ skl={};su=0;
+ if(mode!='ch1')S.sk.forEach(q=>{const sd=SK.find(z=>z[0]==q);if(!sd||!S.inv[q])return;if(S.cd[q]>0){if(!rdl)S.cd[q]--;return}skl[q]=sd[2]+(S.sl[q]||0)});
  const d=[];let id=0;
  for(let s=0;s<4;s++)for(let r=3;r<=15;r++)d.push({id:id++,s,r});
- d.push({id:id++,s:4,r:16},{id:id++,s:4,r:16});
- for(let i=d.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[d[i],d[j]]=[d[j],d[i]]}
+ if(mode!='ch2')d.push({id:id++,s:4,r:16},{id:id++,s:4,r:16});
+ const rn=mode=='ch3'?seeded():Math.random;for(let i=d.length-1;i>0;i--){const j=rn()*(i+1)|0;[d[i],d[j]]=[d[j],d[i]]}
  H=[[],[],[],[]];d.forEach((c,i)=>H[i%4].push(c));
  if(S.inv.luck&&!H[0].some(c=>c.r==16)&&Math.random()<.5){const q=H.findIndex((h,i)=>i&&h.some(c=>c.r==16));if(q>0){const jc=H[q].find(c=>c.r==16);H[q]=H[q].filter(c=>c!==jc);H[0].sort((a,b)=>a.r-b.r);const w=H[0].shift();H[q].push(w);H[0].push(jc)}}
  field=null;last=0;passes=0;rev=false;bk=false;shib=null;out=[];fl=new Set();sel=new Set();over=false;xm=null;
@@ -190,7 +240,7 @@ function render(){
  for(let p=1;p<4;p++){const e=document.createElement('div');
   e.className='opp'+(turn==p&&!over&&!xm?' on':'');
   const o=out.indexOf(p);
-  e.innerHTML=NM[p]+'<div class="n">'+H[p].length+'</div>'+(o>=0?'<span class="badge">'+(fl.has(p)?'反則上がり':(o+1)+'位上がり')+'</span>':'枚');
+  e.innerHTML=NM[p]+'<small style="opacity:.7">（'+TR[tr[p]||0][0]+'）</small><div class="n">'+H[p].length+'</div>'+(o>=0?'<span class="badge">'+(fl.has(p)?'反則上がり':(o+1)+'位上がり')+'</span>':'枚');
   $('opps').appendChild(e)}
  $('me').className=(turn==0||xm)&&!over?'on':'';
  $('rev').textContent=(rev?'🔥革命中 ':'')+(bk?'⤵11バック中 ':'')+(shib?'🔒しばり：'+[...new Set(shib)].map(s=>SU[s]).join('')+' ':'');
@@ -207,7 +257,7 @@ function render(){
  $('pass').disabled=over||!!xm||!(turn==0&&field);
  $('rd').style.display=rd>0&&!hm&&!over&&!xm?'':'none';$('ht').style.display=S.inv.hint&&!over&&!xm?'':'none';$('ht').textContent='ヒント('+hl+')';$('ht').disabled=!(turn==0&&hl>0);
  $('skb').innerHTML='';
- SK.forEach(k=>{if(!S.inv[k[0]]||over||xm)return;const b=document.createElement('button');b.className='sk';b.textContent=k[1]+'('+(skl[k[0]]||0)+')';
+ SK.forEach(k=>{if(!(S.inv[k[0]]&&S.sk.includes(k[0]))||over||xm)return;const b=document.createElement('button');b.className='sk';b.textContent=k[1]+'('+(skl[k[0]]||0)+')';
   b.disabled=turn!=0||!(skl[k[0]]>0)||(k[0]=='cut'&&!field)||((k[0]=='lvup'||k[0]=='jk')&&!skOk(k[0]));
   b.onclick=()=>useSk(k[0]);$('skb').appendChild(b)})}
 function skOk(k){const c=H[0].filter(x=>sel.has(x.id));return c.length==1&&c[0].r>=3&&c[0].r<=(k=='lvup'?14:15)}
@@ -218,7 +268,7 @@ function useSk(k){if(turn!=0||over||xm||!(skl[k]>0))return;const c=H[0].filter(x
  else if(k=='cut'){if(!field)return;clearF();say('場流し！もう一度あなたの番');sfx('cut')}
  else if(k=='rv'){rev=!rev;say('強制革命！強弱が'+(rev?'逆転':'元に戻った'));sfx('rev')}
  else if(k=='peek'){info([1,2,3].map(i=>NM[i]+'：'+[...H[i]].sort((a,b)=>a.r-b.r).map(lb).join(' ')).join('\n'))}
- skl[k]--;su++;hm=true;if(k!='peek')sel.clear();sortAll();render()}
+ skl[k]--;su++;hm=true;if(k=='rv'||k=='jk'){S.cd[k]=1;save()}if(k!='peek')sel.clear();sortAll();render()}
 function tick(){render();clearTimeout(tm);if(over||xm)return;if(turn!=0)tm=setTimeout(()=>cpu(turn),900)}
 function clearF(){field=null;bk=false;shib=null;passes=0}
 function doPlay(p,cs){
@@ -229,8 +279,10 @@ function doPlay(p,cs){
  sfx(p==0?'play':'play2');if(p==0){if(v.t=='s'){unlock('stair');ev('stair',100)}if(field&&field.key==16&&field.n==1&&cs.length==1&&cs[0].s==0&&cs[0].r==3){unlock('sp3');ev('sp3',150)}}
  if(R.shib&&field&&!shib&&suits.length&&field.suits.length==suits.length&&suits.every((x,i)=>x==field.suits[i])){shib=suits;m+='  しばり！'}
  field={...v,cards:cs,suits};last=p;passes=0;
- if(R.revo&&v.t=='g'&&cs.length>=4){rev=!rev;m+='  革命！';sfx('rev');if(p==0){unlock('rev');ev('rev',200)}}
+ if(R.revo&&v.t=='g'&&cs.length>=4){rev=!rev;m+='  革命！';sfx('rev');flash();if(p==0){unlock('rev');ev('rev',200)}}
  if(R.eleven&&v.t=='g'&&v.r==11){bk=!bk;m+='  11バック！';sfx('rev');if(p==0){unlock('back');ev('back',100)}}
+ if(R.nine&&v.t=='g'&&v.r==9){dir=-dir;m+='  9リバース！';sfx('skip')}
+ if(boss=='b1'&&p!=0&&Math.random()<.2){rev=!rev;m+='  革命将軍の号令！革命！';sfx('rev');flash()}
  const clear=R.eight&&v.t=='g'&&v.r==8,skip=R.five&&v.t=='g'&&v.r==5;
  if(clear){clearF();m+='  8切り！';sfx('cut');if(p==0){unlock('cut');ev('cut',50)}}
  if(!act(p)){out.push(p);
@@ -247,13 +299,17 @@ function doPass(p){
  else{say(NM[p]+'：パス');turn=nextA(p)}
  tick()}
 function cpu(p){
- const L=legal(H[p]);if(!L.length)return doPass(p);
- const D=S.d;
+ const L=legal(H[p]);if(!L.length){if(csk[p]&&field&&H[p].length<=5&&Math.random()<.5){csk[p]=0;clearF();say(NM[p]+'：スキル「場流し」発動！');sfx('cut');turn=p;return tick()}return doPass(p)}
+ const D=eD,T=TR[tr[p]||0][1];
  if(D==0){if(field&&Math.random()<.3)return doPass(p);return doPlay(p,L[Math.random()*L.length|0])}
  const cost=cs=>{const v=validate(cs),j=cs.filter(c=>c.r==16).length;
   return sr(v.key)+j*40-(field?0:cs.length*1.5)};
  L.sort((a,b)=>cost(a)-cost(b));
  let b=L[0];
+ const pj=L.filter(c=>!c.some(x=>x.r==16));
+ if(T=='a'&&field&&pj.length&&Math.random()<.5)b=pj.reduce((m,c)=>cost(c)>cost(m)?c:m);
+ if(T=='r'&&R.revo){const rv=L.find(c=>c.length>=4&&validate(c).t=='g');if(rv)return doPlay(p,rv)}
+ if(T=='c'&&field&&H[p].length>4&&(b.some(c=>c.r==16)||validate(b).key>=14))return doPass(p);
  const danger=D>=2&&H.some((h,i)=>i!=p&&act(i)&&h.length<=(D==3?3:2));
  if(danger){const nj=L.filter(c=>!c.some(x=>x.r==16)),pool=nj.length?nj:L;
   return doPlay(p,pool.reduce((m,c)=>cost(c)>cost(m)?c:m))}
@@ -262,24 +318,34 @@ function cpu(p){
  if(field&&b.some(c=>c.r==16)&&H[p].length>3)return doPass(p);
  doPlay(p,b)}
 function finish(){over=true;
- const ord=[...out.filter(p=>!fl.has(p)),...out.filter(p=>fl.has(p))],pr=prev?prev.indexOf(0):-1,hr=ord.indexOf(0);
- prev=ord;const base=[1000,600,300,100][hr]+gs;
+ const ord=[...out.filter(p=>!fl.has(p)),...out.filter(p=>fl.has(p))],pr=prev?prev.indexOf(0):-1;
+ let fm='';const pt0=prev?prev[0]:-1;if(R.fall&&pt0>=0&&ord[0]!=pt0){ord.splice(ord.indexOf(pt0),1);ord.push(pt0);fm='<br>'+NM[pt0]+'は都落ち！'}
+ const hr=ord.indexOf(0);prev=ord;const base=[1000,600,300,100][hr]+gs;
  let mw=1;if(hr==0)mw+=(evs.has('rev')?.5:0)+(evs.has('stair')?.2:0)+(evs.has('back')?.1:0);
- const sk=hr==0?Math.min(3,1+.1*S.st):1,gain=Math.round(base*mw*sk*D_PT[S.d]*(S.inv.purse?1.25:1)*Math.max(.7,1-.05*su));
- const bd='基本'+base+'（順位＋イベント'+gs+'）×勝利ボーナス'+mw.toFixed(1)+'×連勝'+sk.toFixed(1)+'×難易度'+D_PT[S.d]+(S.inv.purse?'×財布1.25':'')+(su?'×スキル使用'+Math.max(.7,1-.05*su).toFixed(2):'');
+ const sk=hr==0?Math.min(3,1+.1*S.st):1,gain=Math.round(base*mw*sk*D_PT[eD]*MM[mode]*(1+.25*S.pr)*(S.inv.purse?1.25:1)*Math.max(.7,1-.05*su));
+ const bd='基本'+base+'（順位＋イベント'+gs+'）×勝利ボーナス'+mw.toFixed(1)+'×連勝'+sk.toFixed(1)+'×難易度'+D_PT[eD]+(MM[mode]!=1?'×モード'+MM[mode]:'')+(S.pr?'×転生'+(1+.25*S.pr):'')+(S.inv.purse?'×財布1.25':'')+(su?'×スキル使用'+Math.max(.7,1-.05*su).toFixed(2):'');
  S.g++;S.r[hr]++;S.pt+=gain;S.money+=gain;
- if(hr==0){S.w[S.d]++;S.st++;S.best=Math.max(S.best,S.st);unlock('first');unlock('king');if(S.st>=3)unlock('win3');if(S.d==3)unlock('oni');if(pr==3)unlock('rise')}else if(!(hr==1&&S.inv.guard))S.st=0;
+ if(hr==0){S.w[eD]++;S.st++;S.best=Math.max(S.best,S.st);unlock('first');unlock('king');if(S.st>=3)unlock('win3');if(eD==3)unlock('oni');if(pr==3)unlock('rise')}else if(!(hr==1&&S.inv.guard))S.st=0;
+ let ex='';const px='<p style="margin:4px 0;font-size:13px">';
+ if(bet){const pay=hr==0?bet*2:hr==1?bet:0;S.money+=pay;ex+=px+'ベット '+$m(bet)+' → 払戻 '+$m(pay)+'</p>'}
+ if(mode=='rank'){const dl=[30,10,-10,-30][hr];S.rt=Math.max(0,S.rt+dl);ex+=px+'レート '+(dl>0?'+':'')+dl+' → '+S.rt+'（'+rk()+'）</p>'}
+ S.h.push(hr);if(S.h.length>30)S.h.shift();
+ prog('play',1);if(hr==0){prog('win',1);if(!su)prog('noskill',1)}
+ if(hr==0&&[5,10,20].includes(S.st)){S.money+=S.st*1000;ex+=px+S.st+'連勝ボーナス '+$m(S.st*1000)+'</p>'}
+ if(hr==0&&boss&&!S.bs[boss]){S.bs[boss]=1;S.money+=10000;ex+=px+'ボス初撃破ボーナス $10,000</p>'}
+ if(mode=='ch3'){const kk=''+dayNum();if(gain>(S.hi[kk]||0)){S.hi[kk]=gain;ex+=px+'デイリー挑戦 自己ベスト更新！</p>'}}
+ if(Rsave){Object.assign(R,Rsave);Rsave=null}
  if(S.g>=50)unlock('g50');if(S.pt>=10000)unlock('pt1000');save();render();sfx(hr==0?'win':'lose');
- $('res').innerHTML='<h2 style="color:var(--gold);margin:0">結果</h2>'+ord.map((p,i)=>TT[i]+'：'+NM[p]+(fl.has(p)?'（反則上がり）':'')).join('<br>')+'<br><p style="margin:6px 0;font-size:13px">難易度：'+D_NM[S.d]+'　連勝：'+S.st+'</p><p style="margin:6px 0">今回スコア <b style="color:var(--gold)">'+$m(gain)+'</b> → 所持金 '+$m(S.money)+'<br><small>'+bd+'</small></p>'+nw.map(x=>'<p style="margin:2px 0;color:var(--gold)">🏆 '+x+'</p>').join('');nw=[];updLv();
+ $('res').innerHTML='<h2 style="color:var(--gold);margin:0">結果</h2>'+ord.map((p,i)=>TT[i]+'：'+NM[p]+(fl.has(p)?'（反則上がり）':'')).join('<br>')+'<br>'+fm+'<p style="margin:6px 0;font-size:13px">難易度：'+D_NM[eD]+'　連勝：'+S.st+'</p><p style="margin:6px 0">今回スコア <b style="color:var(--gold)">'+$m(gain)+'</b> → 所持金 '+$m(S.money)+'<br><small>'+bd+'</small></p>'+ex+nw.map(x=>'<p style="margin:2px 0;color:var(--gold)">🏆 '+x+'</p>').join('');nw=[];updLv();
  setTimeout(()=>$('end').style.display='flex',700)}
 $('play').onclick=()=>{const cs=H[0].filter(c=>sel.has(c.id));
  if(xm){if(cs.length==xm.n){H[0]=H[0].filter(c=>!sel.has(c.id));H[xm.to].push(...cs);sel.clear();xm=null;sortAll();say('交換完了！　'+NM[turn]+'から開始');tick()}return}
  if(turn==0&&ok(cs))doPlay(0,cs)};
 $('pass').onclick=()=>{if(turn==0&&field)doPass(0)};
-$('rl').innerHTML=RULES.map(([k,n,d])=>'<label><input type="checkbox" data-k="'+k+'" checked><b>'+n+'</b><span>'+d+'</span></label>').join('');
+$('rl').innerHTML=RULES.map(([k,n,d])=>'<label><input type="checkbox" data-k="'+k+'" '+(R[k]?'checked':'')+'><b>'+n+'</b><span>'+d+'</span></label>').join('');
 $('rl').onchange=e=>{R[e.target.dataset.k]=e.target.checked?1:0;if(H){field=field&&ok([])?field:field;render()}};
 $('rb').onclick=()=>$('rm').style.display='flex';
-$('df').value=S.d;applyTheme();updSb();$('sb').onclick=()=>{S.snd=S.snd?0:1;save();updSb();sfx('sel')};$('shp').onclick=showSp;$('rd').onclick=()=>{if(rd>0&&!hm&&!xm&&!over){sfx('sel');start(rd-1)}};
+migr();daily();$('df').value=S.d;applyTheme();updSb();$('bm').onclick=()=>{S.bgm=S.bgm?0:1;save();updSb();bgmCtl()};$('sb').onclick=()=>{S.snd=S.snd?0:1;save();updSb();sfx('sel')};$('shp').onclick=showSp;$('rd').onclick=()=>{if(rd>0&&!hm&&!xm&&!over){sfx('sel');start(rd-1)}};
 $('ht').onclick=()=>{if(turn!=0||hl<=0||over||xm)return;const L=legal(H[0]);if(!L.length)return toast('出せる手がありません。パスしましょう');
  const cst=cs=>{const v=validate(cs),j=cs.filter(c=>c.r==16).length;return sr(v.key)+j*40-(field?0:cs.length*1.5)};L.sort((a,b)=>cst(a)-cst(b));hl--;sfx('sel');
  if(field&&L[0].some(c=>c.r==16)&&H[0].length>3){toast('ヒント：パスがおすすめです');return render()}sel=new Set(L[0].map(c=>c.id));render()};$('df').onchange=()=>{S.d=+$('df').value;save()};$('kb').onclick=showRc;
