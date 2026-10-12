@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>大富豪</title>
+<title>大富豪</title><meta name="theme-color" content="#0b3d2a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="大富豪">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0b3d2a;--bg2:#06261a;--tx:#f4f1e6;--gold:#e8c35a}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -71,7 +71,7 @@ button:disabled{opacity:.35;cursor:default}
 <div class="srow"><select id="md" class="tb" title="モード"><option value="normal">通常</option><option value="rank">ランク戦</option><option value="ch1">挑戦：スキル禁止</option><option value="ch2">挑戦：ジョーカーなし</option><option value="ch3">デイリー固定配札(鬼)</option><option value="tour">トーナメント(3戦)</option><option value="b1">ボス：革命将軍</option><option value="b2">ボス：しばり公</option></select><select id="df" class="tb" title="難易度"><option value="0">かんたん</option><option value="1">ふつう</option><option value="2">むずかしい</option><option value="3">鬼</option></select><select id="bt" class="tb" title="ベット"><option value="0">ベットなし</option><option value="1000">ベット $1,000</option><option value="5000">ベット $5,000</option><option value="10000">ベット $10,000</option><option value="20000">ベット $20,000</option><option value="50000">ベット $50,000</option></select></div>
 <div style="text-align:center"><button class="fc" onclick="randPick()" style="background:#fff3;color:var(--tx)">おまかせ</button> <button onclick="goGame()">対戦開始</button> <button onclick="showMenu()" style="background:#fff3;color:var(--tx)">戻る</button></div></div></div>
 <div id="chs" class="scr" style="display:none"><div class="wrap"><h2 style="color:var(--gold);margin:6px 0">👧 キャラクター</h2><div id="cgrid" class="cgrid"></div><div id="cdet" class="cdet"></div><div style="text-align:center;margin-top:12px"><button onclick="showMenu()">戻る</button></div></div></div>
-<div id="st" class="ov"><div><h2 style="margin:0 0 8px;color:var(--gold)">設定</h2><div class="srow" style="flex-direction:column;align-items:stretch"><div style="font-size:13px">CPUの速さ　<select id="spd" class="tb" title="CPU速度"><option value="0">CPU遅い</option><option value="1">CPU普通</option><option value="2">CPU速い</option><option value="3">CPU最速</option></select></div><button id="sb2" onclick="$('sb').click()"></button><button id="bm2" onclick="$('bm').click()"></button><button onclick="$('st').style.display='none';showDt()">データ管理（引継ぎ・リセット）</button></div><div style="text-align:center;margin-top:12px"><button onclick="$('st').style.display='none'">閉じる</button></div></div></div>
+<div id="st" class="ov"><div><h2 style="margin:0 0 8px;color:var(--gold)">設定</h2><div class="srow" style="flex-direction:column;align-items:stretch"><div style="font-size:13px">CPUの速さ　<select id="spd" class="tb" title="CPU速度"><option value="0">CPU遅い</option><option value="1">CPU普通</option><option value="2">CPU速い</option><option value="3">CPU最速</option></select></div><button id="sb2" onclick="$('sb').click()"></button><button id="bm2" onclick="$('bm').click()"></button><button id="instb" onclick="doInstall()" style="display:flex;align-items:center;gap:10px;justify-content:center"><svg width="28" height="28" viewBox="0 0 28 28" style="flex:none"><rect x="3" y="4" width="14" height="20" rx="2" fill="#fff" stroke="#999" transform="rotate(-12 10 14)"/><text x="5.5" y="20" font-size="13" fill="#c4161c" transform="rotate(-12 10 14)">♥</text><rect x="11" y="4" width="14" height="20" rx="2" fill="#fff" stroke="#999" transform="rotate(10 18 14)"/><text x="13.5" y="20" font-size="13" fill="#111" transform="rotate(10 18 14)">♠</text></svg><span id="instt">アプリをインストール</span></button><button onclick="$('st').style.display='none';showDt()">データ管理（引継ぎ・リセット）</button></div><div style="text-align:center;margin-top:12px"><button onclick="$('st').style.display='none'">閉じる</button></div></div></div>
 <div id="gc" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">ガチャ</h2><div id="gcb"></div><div style="text-align:center;margin-top:12px"><button onclick="$('gc').style.display='none'">閉じる</button></div></div></div>
 <div id="sp" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">ショップ</h2><div id="spb"></div><div style="text-align:center;margin-top:12px"><button onclick="$('sp').style.display='none'">閉じる</button></div></div></div>
 <div id="rc" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">記録</h2><div id="rcb"></div><div style="text-align:center;margin-top:12px"><button onclick="presT()">転生</button> <button onclick="cardCp()" style="background:#fff3;color:var(--tx)">スコアカード</button> <button onclick="showDt()" style="background:#fff3;color:var(--tx)">データ管理</button> <button onclick="$('rc').style.display='none'">閉じる</button></div></div></div>
@@ -180,7 +180,27 @@ function goGame(){if(FEAT.chars&&pick.length!=3)return toast('対戦相手を3�
 function showChs(){$('cgrid').innerHTML=CH.map(c=>'<div class="cc" onclick="selCh(\''+c.id+'\')">'+av(c,72)+c.n+'<br><small>💗Lv'+lvOf(S.af[c.id]||0)+'</small></div>').join('');selCh(CH[0].id,1);scr('chs')}
 function selCh(id,q){const c=chById(id),a=S.af[id]||0,l=lvOf(a),T=[0,5,15,30,50,80],nx=T[l+1];if(!q)sfx('sel');
  $('cdet').innerHTML='<div style="display:flex;gap:12px;align-items:center">'+av(c,120,160)+'<div><b style="font-size:16px">'+c.n+'</b>（'+c.age+'歳）<br>'+c.role+'<br><small>得意：'+TR[c.tr][0]+'タイプ ／ 好きなもの：'+c.like+'</small></div></div><p style="margin:8px 0">'+c.desc+'</p><div>好感度 Lv'+l+'『'+AFN[l]+'』 '+a+(nx?' / '+nx:'')+'</div><div class="bar2"><i style="width:'+(nx?Math.min(100,(a-T[l])/(nx-T[l])*100):100)+'%"></i></div><div style="margin-top:8px">'+c.lines.map((t,i)=>{const nd=[1,3,5][i];return'<p style="margin:4px 0">'+(l>=nd?'💬 「'+t+'」':'🔒 好感度Lv'+nd+'で解放')+'</p>'}).join('')+'</div>'}
-function openSet(){updSb();$('st').style.display='flex'}
+function openSet(){updSb();updInst();$('st').style.display='flex'}
+let dip=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e;updInst()});
+addEventListener('appinstalled',()=>{dip=null;toast('インストールしました');updInst()});
+const standalone=()=>(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
+function updInst(){const b=$('instb');if(!b)return;b.disabled=!!standalone();$('instt').textContent=standalone()?'インストール済み':'アプリをインストール'}
+function doInstall(){if(standalone())return;
+ if(dip){dip.prompt();dip.userChoice.then(()=>{dip=null;updInst()});return}
+ info(/iphone|ipad|ipod/i.test(navigator.userAgent)?'【iPhone / iPad】\nSafariの「共有」ボタン →「ホーム画面に追加」を選んでください。':'【インストール方法】\nChrome / Edge：アドレスバー右端のインストールアイコン、またはメニューの「アプリをインストール」から。\nAndroid：メニュー →「ホーム画面に追加」。\n※ https:// または localhost で開いている必要があります（ファイルを直接開いた場合は不可）。')}
+function mkIcon(n){try{const c=document.createElement('canvas');c.width=c.height=n;const x=c.getContext('2d');if(!x)return'';
+ const g=x.createRadialGradient(n/2,n*.4,n*.1,n/2,n/2,n*.75);g.addColorStop(0,'#14684a');g.addColorStop(1,'#06261a');x.fillStyle=g;x.fillRect(0,0,n,n);
+ const card=(cx,cy,rot,suit,col)=>{x.save();x.translate(cx,cy);x.rotate(rot);const w=n*.34,h=n*.48;x.fillStyle='#fffdf6';x.shadowColor='#0008';x.shadowBlur=n*.03;
+  x.beginPath();if(x.roundRect)x.roundRect(-w/2,-h/2,w,h,n*.04);else x.rect(-w/2,-h/2,w,h);x.fill();x.shadowBlur=0;x.fillStyle=col;
+  x.font='bold '+n*.09+'px serif';x.textAlign='left';x.textBaseline='top';x.fillText('A',-w/2+n*.025,-h/2+n*.015);
+  x.font=n*.2+'px serif';x.textAlign='center';x.textBaseline='middle';x.fillText(suit,0,n*.01);x.restore()};
+ card(n*.4,n*.52,-.22,'♥','#c4161c');card(n*.6,n*.5,.2,'♠','#111');return c.toDataURL('image/png')}catch(e){return''}}
+function setupPWA(){const i1=mkIcon(192),i2=mkIcon(512);if(!i1)return;const u=location.href.split('#')[0].split('?')[0];
+ const man={name:'大富豪',short_name:'大富豪',start_url:u,scope:u.replace(/[^/]*$/,''),display:'standalone',orientation:'portrait',background_color:'#0b3d2a',theme_color:'#0b3d2a',icons:[{src:i1,sizes:'192x192',type:'image/png',purpose:'any maskable'},{src:i2,sizes:'512x512',type:'image/png',purpose:'any maskable'}]};
+ const l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify(man)],{type:'application/manifest+json'}));document.head.appendChild(l);
+ const a=document.createElement('link');a.rel='apple-touch-icon';a.href=i1;document.head.appendChild(a);
+ if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{})}
 function bgmCtl(){clearInterval(bgt);bgt=0;if(!S.bgm)return;
  try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();const P=[262,330,392,330,294,349,440,349,330,392,494,392,262,330,392,523];let i=0;
   bgt=setInterval(()=>{TN(P[i%16],0,.4,'triangle',.025);if(i%4==0)TN(P[i%16]/2,0,.8,'sine',.03);i++},420)}catch(e){}}
@@ -415,5 +435,6 @@ $('ht').onclick=()=>{if(turn!=0||hl<=0||over||xm)return;const L=legal(H[0]);if(!
  const cst=cs=>{const v=validate(cs),j=cs.filter(c=>c.r==16).length;return sr(v.key)+j*40-(field?0:cs.length*1.5)};L.sort((a,b)=>cst(a)-cst(b));hl--;sfx('sel');
  if(field&&L[0].some(c=>c.r==16)&&H[0].length>3){toast('ヒント：パスがおすすめです');return render()}sel=new Set(L[0].map(c=>c.id));render()};$('df').onchange=()=>{S.d=+$('df').value;save()};$('kb').onclick=showRc;
 document.body.classList.toggle('nofc',!FEAT.chars);document.body.classList.toggle('nofg',!FEAT.gacha);
+try{setupPWA()}catch(e){}
 showMenu();
 </script></body></html>
