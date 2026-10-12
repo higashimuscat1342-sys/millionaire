@@ -26,7 +26,14 @@ h1{font-size:18px;margin:4px 0 8px;color:var(--gold);letter-spacing:.2em;text-al
 .c.j{color:#6a2fc4;font-size:11px}
 #hand .c{margin:2px -6px;cursor:pointer}
 #hand .c.s{transform:translateY(-14px);outline:3px solid var(--gold)}
-#btns{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}#ht,#rd{background:#fff3;color:var(--tx)}#cfm{white-space:pre-line}#opt{display:flex;gap:6px;justify-content:center;margin-bottom:6px;flex-wrap:wrap}.tb option{color:#222}#bar{flex-wrap:wrap}@keyframes fl{0%{box-shadow:0 0 0 0 #ff5a5a}100%{box-shadow:0 0 34px 18px #0000}}.flash{animation:fl .8s}.c[data-cd=pink]{background:#ffe3ee;box-shadow:0 0 0 2px #ff7aa8}.c[data-cd=steel]{background:linear-gradient(#e8edf2,#9aa7b4)}.c[data-cd=rainbow]{background:linear-gradient(135deg,#ffd6d6,#fff3b0,#c8ffd4,#c8e4ff,#e6c8ff);box-shadow:0 0 6px #fff}@media(max-width:520px){#app{padding-top:70px}}#skb{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}.sk{padding:6px 12px;font-size:12px;background:#6a2fc4;color:#fff}
+#btns{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}#ht,#rd{background:#fff3;color:var(--tx)}#cfm{white-space:pre-line}.scr{position:fixed;inset:0;z-index:8;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 14px) 12px 24px}.wrap{max-width:560px;margin:0 auto}
+.ttl{font-size:30px;text-align:center;margin:12px 0 2px;letter-spacing:.2em;color:var(--gold)}.ttl small{display:block;font-size:12px;letter-spacing:.3em;opacity:.8}
+.mlv{text-align:center;font-size:12px;opacity:.9;margin-bottom:14px;line-height:1.7}.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mb{padding:14px 8px;font-size:15px;background:#0006;color:var(--tx);border:1px solid #e8c35a66;border-radius:14px}.mb.big{grid-column:span 2;background:linear-gradient(135deg,#e8c35a,#c9962f);color:#222;font-size:17px;padding:18px}.mb small{display:block;font-size:11px;font-weight:400}
+.mdq{margin-top:14px;font-size:12px;background:#0004;border-radius:10px;padding:8px 12px}.mdq p{margin:3px 0}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}.cc{background:#0005;border:2px solid #fff2;border-radius:12px;padding:6px;text-align:center;font-size:12px;cursor:pointer}.cc.on{border-color:var(--gold);box-shadow:0 0 10px #e8c35a88}.cc svg{display:block;margin:0 auto 2px;width:100%;max-width:72px;height:auto}
+.srow{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0}.cdet{background:#0005;border-radius:12px;padding:12px;font-size:13px;line-height:1.7;min-height:80px}.bar2{height:8px;background:#fff2;border-radius:4px;overflow:hidden}.bar2>i{display:block;height:100%;background:#ff7aa8}
+body.inmenu #app,body.inmenu #bar{display:none}.opp svg{display:block;margin:0 auto 2px}#opt{display:flex;gap:6px;justify-content:center;margin-bottom:6px;flex-wrap:wrap}.tb option{color:#222}#bar{flex-wrap:wrap}@keyframes fl{0%{box-shadow:0 0 0 0 #ff5a5a}100%{box-shadow:0 0 34px 18px #0000}}.flash{animation:fl .8s}.c[data-cd=pink]{background:#ffe3ee;box-shadow:0 0 0 2px #ff7aa8}.c[data-cd=steel]{background:linear-gradient(#e8edf2,#9aa7b4)}.c[data-cd=rainbow]{background:linear-gradient(135deg,#ffd6d6,#fff3b0,#c8ffd4,#c8e4ff,#e6c8ff);box-shadow:0 0 6px #fff}@media(max-width:520px){#app{padding-top:70px}}#skb{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}.sk{padding:6px 12px;font-size:12px;background:#6a2fc4;color:#fff}
 button{font:inherit;font-weight:700;padding:10px 26px;border:0;border-radius:24px;background:var(--gold);color:#222;cursor:pointer}
 button:disabled{opacity:.35;cursor:default}
 #pass{background:#fff3;color:var(--tx)}
@@ -37,21 +44,34 @@ button:disabled{opacity:.35;cursor:default}
 #rm b{margin:0 6px;color:var(--gold)}#rm span{opacity:.85}
 @media(max-width:520px){.c{width:40px;height:60px;font-size:13px}#hand .c{margin:2px -8px}.opp{font-size:11px}}
 </style></head><body>
-<div id="bar"><select id="df" class="tb" title="難易度"><option value="0">かんたん</option><option value="1">ふつう</option><option value="2">むずかしい</option><option value="3">鬼</option></select><span class="sp"></span><button id="shp" class="tb">ショップ</button><button id="kb" class="tb">記録</button><button id="rb" class="tb">ルール</button><button id="sb" class="tb"></button><button id="bm" class="tb"></button></div><div id="toast"></div>
+<div id="bar"><button id="mn" class="tb" onclick="showMenu()">≡ メニュー</button><span class="sp"></span><button id="shp" class="tb">ショップ</button><button id="kb" class="tb">記録</button><button id="rb" class="tb">ルール</button><button id="sb" class="tb"></button><button id="bm" class="tb"></button></div><div id="toast"></div>
 <div id="app">
-<h1>♠ 大富豪 ♥</h1><div id="lv"></div><div id="opt"><select id="md" class="tb" title="モード"><option value="normal">通常</option><option value="rank">ランク戦</option><option value="ch1">挑戦：スキル禁止</option><option value="ch2">挑戦：ジョーカーなし</option><option value="ch3">デイリー固定配札(鬼)</option><option value="tour">トーナメント(3戦)</option><option value="b1">ボス：革命将軍</option><option value="b2">ボス：しばり公</option></select><select id="bt" class="tb" title="ベット"><option value="0">ベットなし</option><option value="1000">ベット $1,000</option><option value="5000">ベット $5,000</option><option value="10000">ベット $10,000</option><option value="20000">ベット $20,000</option><option value="50000">ベット $50,000</option></select><select id="spd" class="tb" title="CPU速度"><option value="0">CPU遅い</option><option value="1">CPU普通</option><option value="2">CPU速い</option><option value="3">CPU最速</option></select></div>
+<h1>♠ 大富豪 ♥</h1><div id="lv"></div>
 <div id="opps"></div>
 <div id="field"><div id="rev"></div><div id="fc"></div></div>
 <div id="log"></div>
 <div id="me"><div id="hand"></div>
 <div id="btns"><button id="play">出す</button><button id="pass">パス</button><button id="ht" style="display:none"></button><button id="rd" style="display:none">配り直し</button></div><div id="skb"></div></div>
 </div>
-<div id="end" class="ov"><div><div id="res"></div><button onclick="start()">もう一度</button></div></div>
+<div id="end" class="ov"><div><div id="res"></div><button onclick="start()">もう一度</button> <button onclick="$('end').style.display='none';showMenu()" style="background:#fff3;color:var(--tx)">メニューへ</button></div></div>
 <div id="rm" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">ルール</h2>
 <p style="font-size:13px;margin:0 0 8px">強さ：3＜4＜…＜K＜A＜2＜ジョーカー。場と同じ枚数で強いカードを出す。出せない時はパス。全員パスで場が流れる。チェックでON/OFF（カード交換は次の対戦から）。</p>
 <div id="rl"></div><div style="text-align:center;margin-top:12px"><button onclick="$('rm').style.display='none'">閉じる</button></div></div></div>
 <div id="dt" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">データ管理</h2><p style="font-size:12px;margin:0 0 6px">引継ぎコードを書き出して、別の端末やブラウザで読み込めます。</p><textarea id="dtx" rows="5" style="width:100%;font-size:11px;background:#000;color:var(--tx);border:1px solid #fff4;border-radius:8px" placeholder="ここに引継ぎコードを貼り付け"></textarea><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:10px"><button onclick="dtOut()">書き出し</button><button onclick="dtCopy()">コピー</button><button onclick="dtIn()">読み込み</button><button onclick="resetS()" style="background:#c0392b;color:#fff">リセット</button></div><div style="text-align:center;margin-top:10px"><button onclick="$('dt').style.display='none'">閉じる</button></div></div></div>
 <div id="cf" class="ov" style="z-index:30"><div style="text-align:center"><p id="cfm" style="line-height:1.7"></p><button id="cfy">はい</button> <button id="cfn" style="background:#fff3;color:var(--tx)">いいえ</button></div></div>
+<div id="menu" class="scr" style="display:none"><div class="wrap"><div class="ttl">♠ 大富豪 ♥<small>GIRLS TABLE</small></div><div id="mlv" class="mlv"></div>
+<div class="mgrid"><button id="mcont" class="mb big" style="display:none" onclick="scr(null);tick()">▶ 対戦に戻る</button>
+<button class="mb big" onclick="openSetup('free')">🎴 フリーモード</button>
+<button class="mb big" onclick="openSetup('tour')">🏆 トーナメント<small id="mtour"></small></button>
+<button class="mb" onclick="showChs()">👧 キャラクター</button><button class="mb" onclick="showSp()">🛒 ショップ</button>
+<button class="mb" onclick="showGc()">🎁 ガチャ</button><button class="mb" onclick="showRc()">📊 記録</button>
+<button class="mb" onclick="$('rm').style.display='flex'">📖 ルール</button><button class="mb" onclick="openSet()">⚙ 設定</button></div>
+<div id="mdq" class="mdq"></div></div></div>
+<div id="setup" class="scr" style="display:none"><div class="wrap"><h2 id="sth" style="color:var(--gold);margin:6px 0"></h2><p style="font-size:13px;margin:0">対戦相手を3人選んでください（選んだ順が席順）</p><div id="spick" class="cgrid"></div>
+<div class="srow"><select id="md" class="tb" title="モード"><option value="normal">通常</option><option value="rank">ランク戦</option><option value="ch1">挑戦：スキル禁止</option><option value="ch2">挑戦：ジョーカーなし</option><option value="ch3">デイリー固定配札(鬼)</option><option value="tour">トーナメント(3戦)</option><option value="b1">ボス：革命将軍</option><option value="b2">ボス：しばり公</option></select><select id="df" class="tb" title="難易度"><option value="0">かんたん</option><option value="1">ふつう</option><option value="2">むずかしい</option><option value="3">鬼</option></select><select id="bt" class="tb" title="ベット"><option value="0">ベットなし</option><option value="1000">ベット $1,000</option><option value="5000">ベット $5,000</option><option value="10000">ベット $10,000</option><option value="20000">ベット $20,000</option><option value="50000">ベット $50,000</option></select></div>
+<div style="text-align:center"><button onclick="randPick()" style="background:#fff3;color:var(--tx)">おまかせ</button> <button onclick="goGame()">対戦開始</button> <button onclick="showMenu()" style="background:#fff3;color:var(--tx)">戻る</button></div></div></div>
+<div id="chs" class="scr" style="display:none"><div class="wrap"><h2 style="color:var(--gold);margin:6px 0">👧 キャラクター</h2><div id="cgrid" class="cgrid"></div><div id="cdet" class="cdet"></div><div style="text-align:center;margin-top:12px"><button onclick="showMenu()">戻る</button></div></div></div>
+<div id="st" class="ov"><div><h2 style="margin:0 0 8px;color:var(--gold)">設定</h2><div class="srow" style="flex-direction:column;align-items:stretch"><div style="font-size:13px">CPUの速さ　<select id="spd" class="tb" title="CPU速度"><option value="0">CPU遅い</option><option value="1">CPU普通</option><option value="2">CPU速い</option><option value="3">CPU最速</option></select></div><button id="sb2" onclick="$('sb').click()"></button><button id="bm2" onclick="$('bm').click()"></button><button onclick="$('st').style.display='none';showDt()">データ管理（引継ぎ・リセット）</button></div><div style="text-align:center;margin-top:12px"><button onclick="$('st').style.display='none'">閉じる</button></div></div></div>
 <div id="gc" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">ガチャ</h2><div id="gcb"></div><div style="text-align:center;margin-top:12px"><button onclick="$('gc').style.display='none'">閉じる</button></div></div></div>
 <div id="sp" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">ショップ</h2><div id="spb"></div><div style="text-align:center;margin-top:12px"><button onclick="$('sp').style.display='none'">閉じる</button></div></div></div>
 <div id="rc" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">記録</h2><div id="rcb"></div><div style="text-align:center;margin-top:12px"><button onclick="presT()">転生</button> <button onclick="cardCp()" style="background:#fff3;color:var(--tx)">スコアカード</button> <button onclick="showDt()" style="background:#fff3;color:var(--tx)">データ管理</button> <button onclick="$('rc').style.display='none'">閉じる</button></div></div></div>
@@ -102,7 +122,7 @@ const DQ=[['win','1回1位になる',1,3000],['play','3戦する',3,2500],['stai
 const slots=()=>2+(S.inv.slot?1:0);
 const dayNum=()=>Math.floor((Date.now()-new Date().getTimezoneOffset()*60000)/864e5);
 function seeded(){let x=dayNum()*9301+49297;return()=>{x=(x*9301+49297)%233280;return x/233280}}
-function migr(){S.sk=S.sk||[];S.sl=S.sl||{};S.cd=S.cd||{};S.h=S.h||[];S.bs=S.bs||{};S.hi=S.hi||{};S.tour=S.tour||{n:0,p:0};S.dq=S.dq||{d:'',l:[],p:{},ok:{}};
+function migr(){S.sk=S.sk||[];S.sl=S.sl||{};S.cd=S.cd||{};S.h=S.h||[];S.bs=S.bs||{};S.hi=S.hi||{};S.tour=S.tour||{n:0,p:0};S.af=S.af||{};if(!S.opp||S.opp.length!=3)S.opp=['hinata','setsuna','mikoto'];S.dq=S.dq||{d:'',l:[],p:{},ok:{}};
  if(!S.sk.length)S.sk=SK.map(k=>k[0]).filter(k=>S.inv[k]).slice(0,slots())}
 function daily(){const k=''+dayNum();if(S.dq.d==k)return;
  S.dq={d:k,l:DQ.map((q,i)=>[q[0],(dayNum()*7+i*13)%17]).sort((a,b)=>a[1]-b[1]).slice(0,3).map(x=>x[0]),p:{},ok:{}};save()}
@@ -126,6 +146,34 @@ function presT(){const need=S.pa+100000;if(S.pt<need)return toast('転生には�
 function cardCp(){const t='【大富豪 スコアカード】累計$'+Math.round(S.pt).toLocaleString()+' / 最高連勝'+S.best+' / レート'+S.rt+'('+rk()+') / 転生'+S.pr+'回 / '+S.g+'戦'+S.r[0]+'勝';
  try{navigator.clipboard.writeText(t)}catch(e){}toast('スコアカードをコピーしました')}
 function flash(){const e=$('field');e.classList.remove('flash');void e.offsetWidth;e.classList.add('flash')}
+const AFN=['初対面','顔見知り','友達','仲良し','特別な人','大切な人'];
+const CH=[
+{id:'hinata',n:'桜庭ひなた',age:20,role:'サークルの元気な後輩',tr:2,hc:'#f2a65a',ec:'#c0622b',bg:'#ffe6c8',ac:'#ff5a8a',like:'甘いもの・体を動かすこと',desc:'いつも全力のスポーツ少女。勝負は押せ押せの強気な打ち筋で、負けると本気で悔しがる。',lines:['先輩、今日は負けませんからね！','先輩と遊ぶ時間が、一番楽しいんです。','……ずっと隣で、勝負していたいです。'],win:'やった〜！先輩に勝っちゃった！',lose:'うぅ…悔しい！もう一回です！'},
+{id:'setsuna',n:'氷室セツナ',age:24,role:'図書館司書',tr:0,hc:'#9ec8e8',ec:'#3b6e9a',bg:'#dff0fb',ac:'#3b6e9a',like:'読書・紅茶',desc:'無口で冷静。強いカードは最後まで温存する慎重派。表情は変わらないが、よく見ると耳が赤い。',lines:['……あなたの手、読めない。','少し、勝負が楽しいと思えてきた。','あなたの隣は、落ち着く。それだけ。'],win:'……当然の結果。',lose:'……やるわね。認めてあげる。'},
+{id:'mikoto',n:'神楽ミコト',age:22,role:'神社の巫女さん',tr:1,hc:'#2b2230',ec:'#b03030',bg:'#ffe0e0',ac:'#d83a3a',like:'お参り・和菓子',desc:'ひらめきと運に任せた大逆転が得意。革命が決まった瞬間の笑顔は神々しい。',lines:['今日の運勢は…革命日和です！','あなたに会えた日は、不思議と運が良いんです。','これは神様のお導きかもしれませんね。'],win:'ふふっ、神様が味方してくれました。',lose:'あら…運命の悪戯ですね。'},
+{id:'luna',n:'白石ルナ',age:23,role:'おっとり屋の先輩',tr:3,hc:'#e8e8f4',ec:'#8a7fc4',bg:'#efeaff',ac:'#8a7fc4',like:'お昼寝・星空',desc:'のんびり屋だが、気づくと堅実に上がっている。いつも眠そうで、よく膝枕を勧めてくる。',lines:['のんびりやろうね〜','あなたといると、時間が優しく流れるの。','…ねぇ、もう少しだけ、こうしていよ？'],win:'あれれ、勝っちゃったぁ。',lose:'わぁ、負けちゃった〜。おめでとう。'},
+{id:'alice',n:'黒羽アリス',age:21,role:'天才プログラマー',tr:2,hc:'#6a4cc4',ec:'#c43c8a',bg:'#ece0ff',ac:'#c43c8a',like:'チェス・ミルクティー',desc:'勝負にはプライドを賭ける天才肌。素直になれず、負けると八つ当たりしてくる。',lines:['べ、別にあなたのために来たんじゃないんだから！','……あなたと打つ手は、少しだけ楽しいわ。','好きとか言ってないでしょ！…ばか。'],win:'ふふん、私に勝とうなんて百年早いわ！',lose:'ま、負けてないもん！次は絶対勝つんだから！'},
+{id:'midori',n:'柊みどり',age:29,role:'頼れる保健師さん',tr:0,hc:'#4fa070',ec:'#2f7a50',bg:'#e0f5e8',ac:'#2f7a50',like:'ハーブティー・園芸',desc:'面倒見の良いお姉さん。相手をじっくり観察して、勝負所で動く。',lines:['先生にも本気で挑んでおいで。','頑張ってる姿、ちゃんと見てるわよ。','あなたの笑顔が、私の一番のご褒美かな。'],win:'ふふ、まだまだ負けられないわね。',lose:'やられたわ…成長したのね。'}];
+const chById=id=>CH.find(c=>c.id==id)||CH[0],CHo=p=>chById(S.opp[p-1]);
+const lvOf=a=>{let l=0;[5,15,30,50,80].forEach(t=>{if(a>=t)l++});return l};
+const av=(c,z=48)=>'<svg width="'+z+'" height="'+z+'" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="'+c.bg+'"/><ellipse cx="24" cy="26" rx="15" ry="17" fill="'+c.hc+'"/><circle cx="24" cy="26" r="11.5" fill="#ffe3d0"/><path d="M12 24c2-10 22-12 24 0c-5-4-10-5-24 0z" fill="'+c.hc+'"/><circle cx="13" cy="14" r="3.5" fill="'+c.ac+'"/><circle cx="19.5" cy="27" r="2" fill="'+c.ec+'"/><circle cx="28.5" cy="27" r="2" fill="'+c.ec+'"/><path d="M21 33q3 2.5 6 0" stroke="#c4585c" fill="none" stroke-width="1.3" stroke-linecap="round"/><circle cx="16.5" cy="31" r="2" fill="#ffb3b3" opacity=".6"/><circle cx="31.5" cy="31" r="2" fill="#ffb3b3" opacity=".6"/></svg>';
+const scr=id=>{['menu','setup','chs'].forEach(k=>$(k).style.display=k==id?'block':'none');document.body.classList.toggle('inmenu',!!id)};
+function showMenu(){clearTimeout(tm);scr('menu');updLv();$('mcont').style.display=(H&&over===false)?'':'none';
+ $('mtour').textContent=S.tour.n?'第'+(S.tour.n+1)+'戦（現在'+S.tour.p+'pt）':'3戦の合計ptで報酬';$('mdq').innerHTML='<b>今日のデイリー課題</b>'+dqh()}
+let pick=[];
+function openSetup(m){pick=[...S.opp];renderPick();$('sth').textContent=m=='tour'?'🏆 トーナメント':'🎴 フリーモード';
+ if(m=='tour'){$('md').value='tour';$('md').disabled=true}else{$('md').disabled=false;if($('md').value=='tour')$('md').value='normal'}
+ $('df').value=S.d;scr('setup')}
+function renderPick(){$('spick').innerHTML=CH.map(c=>{const i=pick.indexOf(c.id);return'<div class="cc'+(i>=0?' on':'')+'" onclick="togPick(\''+c.id+'\')">'+av(c,72)+c.n+'<br><small>'+(i>=0?'席'+(i+1)+' ':'')+'💗Lv'+lvOf(S.af[c.id]||0)+'</small></div>'}).join('')}
+function togPick(id){const i=pick.indexOf(id);if(i>=0)pick.splice(i,1);else{if(pick.length>=3)pick.shift();pick.push(id)}sfx('sel');renderPick()}
+function randPick(){pick=CH.map(c=>c.id).sort(()=>Math.random()-.5).slice(0,3);renderPick()}
+function goGame(){if(pick.length!=3)return toast('対戦相手を3人選んでください');
+ const run=()=>{S.opp=[...pick];S.d=+$('df').value;save();scr(null);start()};
+ if(H&&over===false)ask('進行中の対戦は破棄されます（ベットは戻りません）。新しく始めますか？',run);else run()}
+function showChs(){$('cgrid').innerHTML=CH.map(c=>'<div class="cc" onclick="selCh(\''+c.id+'\')">'+av(c,72)+c.n+'<br><small>💗Lv'+lvOf(S.af[c.id]||0)+'</small></div>').join('');selCh(CH[0].id,1);scr('chs')}
+function selCh(id,q){const c=chById(id),a=S.af[id]||0,l=lvOf(a),T=[0,5,15,30,50,80],nx=T[l+1];if(!q)sfx('sel');
+ $('cdet').innerHTML='<div style="display:flex;gap:12px;align-items:center">'+av(c,96)+'<div><b style="font-size:16px">'+c.n+'</b>（'+c.age+'歳）<br>'+c.role+'<br><small>得意：'+TR[c.tr][0]+'タイプ ／ 好きなもの：'+c.like+'</small></div></div><p style="margin:8px 0">'+c.desc+'</p><div>好感度 Lv'+l+'『'+AFN[l]+'』 '+a+(nx?' / '+nx:'')+'</div><div class="bar2"><i style="width:'+(nx?Math.min(100,(a-T[l])/(nx-T[l])*100):100)+'%"></i></div><div style="margin-top:8px">'+c.lines.map((t,i)=>{const nd=[1,3,5][i];return'<p style="margin:4px 0">'+(l>=nd?'💬 「'+t+'」':'🔒 好感度Lv'+nd+'で解放')+'</p>'}).join('')+'</div>'}
+function openSet(){updSb();$('st').style.display='flex'}
 function bgmCtl(){clearInterval(bgt);bgt=0;if(!S.bgm)return;
  try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();const P=[262,330,392,330,294,349,440,349,330,392,494,392,262,330,392,523];let i=0;
   bgt=setInterval(()=>{TN(P[i%16],0,.4,'triangle',.025);if(i%4==0)TN(P[i%16]/2,0,.8,'sine',.03);i++},420)}catch(e){}}
@@ -135,7 +183,7 @@ rev:()=>[0,.1,.2].forEach((t,i)=>TN(500-i*120,t,.15,'sawtooth',.06,200)),cut:()=
 win:()=>[523,659,784,1047].forEach((f,i)=>TN(f,i*.12,.25,'square',.07)),lose:()=>[392,330,262,196].forEach((f,i)=>TN(f,i*.18,.3,'triangle',.08)),
 ach:()=>[784,988,1319].forEach((f,i)=>TN(f,i*.09,.2,'sine',.09)),buy:()=>{TN(1318,0,.08,'square',.06);TN(1760,.08,.2,'square',.06)}};
 function sfx(k){if(!S.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();SFX[k]()}catch(e){}}
-const updSb=()=>{$('sb').textContent=S.snd?'🔊':'🔇';$('bm').textContent=S.bgm?'♪':'♪×'};
+const updSb=()=>{$('sb').textContent=S.snd?'🔊':'🔇';$('bm').textContent=S.bgm?'♪':'♪×';$('sb2').textContent='効果音：'+(S.snd?'ON':'OFF');$('bm2').textContent='BGM：'+(S.bgm?'ON':'OFF')};
 function applyTheme(){const b=SHOP.find(x=>x[1]==S.eq.bg)||SHOP[0];document.body.style.background=b[4];document.body.style.backgroundAttachment='fixed'}
 function showSp(){let h='<p style="font-size:14px;margin:0">所持金：<b style="color:var(--gold)">'+$m(S.money)+'</b>　💎'+S.sh+'　スキル枠 '+S.sk.length+'/'+slots()+'　<button onclick="showGc()" style="padding:4px 12px;font-size:12px">ガチャ</button></p>';
  [['bg','背景'],['cd','カードデザイン'],['ut','有利アイテム']].forEach(([k,t])=>{h+='<h3 style="margin:12px 0 2px;font-size:14px">'+t+'</h3>';
@@ -150,14 +198,14 @@ function ev(k,pt){gs+=pt;evs.add(k);prog(k,1);
  if(ms&&k==ms[0]&&!msd){msd=1;gs+=500;toast('ミッション達成 +500');sfx('ach')}updLv()}
 const D_NM=['かんたん','ふつう','むずかしい','鬼'],D_PT=[.5,1,1.5,2];
 const LV=[[0,'平民'],[5000,'商人'],[15000,'貴族'],[40000,'大臣'],[100000,'将軍'],[250000,'大富豪王']];
-const ACH=[['first','初勝利','1位になる'],['king','大富豪','大富豪（1位）で終える'],['win3','3連勝','3連続で1位'],['rise','下剋上','大貧民の次の対戦で1位になる'],['oni','鬼退治','鬼で1位になる'],['rev','革命児','革命を起こす'],['stair','階段使い','階段を出す'],['back','11バック','11バックを決める'],['cut','8切りの達人','8切りを決める'],['sp3','スペ3の守り','スペ3返しを決める'],['five','スキップ王','5スキップを決める'],['g50','古参','通算50戦する'],['pt1000','富豪への道','累計$10,000を稼ぐ'],['bet','大勝負','ベット$50,000で1位になる'],['boss','ボスハンター','ボスを倒す'],['g10','ガチャ中毒','ガチャを10連で引く'],['ur','引きの強さ','URを引く'],['pres','輪廻','転生する'],['tour','トーナメント王','トーナメントで合計8pt以上']];
-const S0=()=>({g:0,w:[0,0,0,0],r:[0,0,0,0],pt:0,money:0,st:0,best:0,ach:{},d:1,snd:1,inv:{},eq:{bg:'felt',cd:'classic'},rt:1000,pr:0,pa:0,sk:[],sl:{},cd:{},sh:0,gp:0,h:[],dq:{d:'',l:[],p:{},ok:{}},bs:{},hi:{},bgm:0,tour:{n:0,p:0}});
+const ACH=[['first','初勝利','1位になる'],['king','大富豪','大富豪（1位）で終える'],['win3','3連勝','3連続で1位'],['rise','下剋上','大貧民の次の対戦で1位になる'],['oni','鬼退治','鬼で1位になる'],['rev','革命児','革命を起こす'],['stair','階段使い','階段を出す'],['back','11バック','11バックを決める'],['cut','8切りの達人','8切りを決める'],['sp3','スペ3の守り','スペ3返しを決める'],['five','スキップ王','5スキップを決める'],['g50','古参','通算50戦する'],['pt1000','富豪への道','累計$10,000を稼ぐ'],['bet','大勝負','ベット$50,000で1位になる'],['boss','ボスハンター','ボスを倒す'],['g10','ガチャ中毒','ガチャを10連で引く'],['ur','引きの強さ','URを引く'],['pres','輪廻','転生する'],['tour','トーナメント王','トーナメントで合計8pt以上'],['af','心の距離','誰かと好感度Lv3になる']];
+const S0=()=>({g:0,w:[0,0,0,0],r:[0,0,0,0],pt:0,money:0,st:0,best:0,ach:{},d:1,snd:1,inv:{},eq:{bg:'felt',cd:'classic'},rt:1000,pr:0,pa:0,sk:[],sl:{},cd:{},sh:0,gp:0,h:[],dq:{d:'',l:[],p:{},ok:{}},bs:{},hi:{},bgm:0,tour:{n:0,p:0},opp:['hinata','setsuna','mikoto'],af:{}});
 let S=S0(),nw=[],rq=0;
 try{Object.assign(S,JSON.parse(localStorage.getItem('daifugo')||'{}'))}catch(e){}
 const save=()=>{try{localStorage.setItem('daifugo',JSON.stringify(S))}catch(e){}};
 function toast(t){const e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>e.style.display='none',2200)}
 function unlock(id){if(S.ach[id])return;S.ach[id]=1;sfx('ach');const a=ACH.find(x=>x[0]==id);nw.push(a[1]);toast('🏆 実績：'+a[1]);save()}
-function updLv(){let n=LV[0][1];LV.forEach(l=>{if(S.pt>=l[0])n=l[1]});$('lv').innerHTML='称号：'+n+(S.pr?'（転生'+S.pr+'）':'')+'　💵'+$m(S.money)+'　連勝 '+S.st+'　R'+S.rt+'　今回 '+gs+(ms?'<br>ミッション：'+ms[2]+(msd?'（達成！）':'（+500）'):'')}
+function updLv(){let n=LV[0][1];LV.forEach(l=>{if(S.pt>=l[0])n=l[1]});$('lv').innerHTML=$('mlv').innerHTML='称号：'+n+(S.pr?'（転生'+S.pr+'）':'')+'　💵'+$m(S.money)+'　連勝 '+S.st+'　R'+S.rt+'　今回 '+gs+(ms?'<br>ミッション：'+ms[2]+(msd?'（達成！）':'（+500）'):'')}
 function showRc(){$('rcb').innerHTML='<p>対戦数：'+S.g+'　累計獲得：'+$m(S.pt)+'　所持金：'+$m(S.money)+'　最高連勝：'+S.best+'</p><p>順位：'+TT.map((t,i)=>t+' '+S.r[i]).join(' / ')+'</p><p>難易度別1位：'+D_NM.map((t,i)=>t+' '+S.w[i]).join(' / ')+'</p><p>レート：'+S.rt+'（'+rk()+'）　転生：'+S.pr+'回</p><p>直近の順位：'+hist()+'</p><hr><p><b>デイリー課題</b></p>'+dqh()+'<hr>'+ACH.map(a=>'<p class="'+(S.ach[a[0]]?'':'a')+'">'+(S.ach[a[0]]?'🏆':'🔒')+' <b>'+a[1]+'</b> '+a[2]+'</p>').join('');$('rc').style.display='flex'}
 function ask(m,f){$('cfn').style.display='';$('cfy').textContent='はい';$('cfm').textContent=m;$('cf').style.display='flex';$('cfy').onclick=()=>{$('cf').style.display='none';f()};$('cfn').onclick=()=>$('cf').style.display='none'}
 function showDt(){$('rc').style.display='none';$('dt').style.display='flex'}
@@ -210,7 +258,7 @@ function start(k){const rdl=typeof k=='number';
   bet=Math.min(+$('bt').value,S.money);S.money-=bet;save();
   if(R.draft||boss){Rsave={...R};if(boss=='b2'){R.shib=1;R.stair=0}
    if(R.draft){const pl=['eleven','shib','stair','sp3','five','nine','fall','foul','ten','seven'].sort(()=>Math.random()-.5);pl.forEach((q,i)=>R[q]=i<3?1:0);toast('今回の特殊ルール：'+pl.slice(0,3).map(q=>RULES.find(x=>x[0]==q)[1]).join('・'))}}
-  tr=[0,1,2,3].map(()=>Math.random()*TR.length|0);csk=[0,1,1,1].map(x=>x&&eD>0?1:0)}
+  S.opp.forEach((id,i)=>NM[i+1]=chById(id).n);tr=[0,...S.opp.map(id=>chById(id).tr)];csk=[0,1,1,1].map(x=>x&&eD>0?1:0)}
  skl={};su=0;
  if(mode!='ch1')S.sk.forEach(q=>{const sd=SK.find(z=>z[0]==q);if(!sd||!S.inv[q])return;if(S.cd[q]>0){if(!rdl)S.cd[q]--;return}skl[q]=sd[2]+(S.sl[q]||0)});
  const d=[];let id=0;
@@ -240,7 +288,7 @@ function render(){
  for(let p=1;p<4;p++){const e=document.createElement('div');
   e.className='opp'+(turn==p&&!over&&!xm?' on':'');
   const o=out.indexOf(p);
-  e.innerHTML=NM[p]+'<small style="opacity:.7">（'+TR[tr[p]||0][0]+'）</small><div class="n">'+H[p].length+'</div>'+(o>=0?'<span class="badge">'+(fl.has(p)?'反則上がり':(o+1)+'位上がり')+'</span>':'枚');
+  e.innerHTML=av(CHo(p),34)+NM[p]+'<small style="opacity:.7">（'+TR[tr[p]||0][0]+'）</small><div class="n">'+H[p].length+'</div>'+(o>=0?'<span class="badge">'+(fl.has(p)?'反則上がり':(o+1)+'位上がり')+'</span>':'枚');
   $('opps').appendChild(e)}
  $('me').className=(turn==0||xm)&&!over?'on':'';
  $('rev').textContent=(rev?'🔥革命中 ':'')+(bk?'⤵11バック中 ':'')+(shib?'🔒しばり：'+[...new Set(shib)].map(s=>SU[s]).join('')+' ':'');
@@ -342,6 +390,9 @@ function finish(){over=true;
   if(T.n>=3){const rw=T.p>=8?30000:T.p>=6?10000:T.p>=4?3000:0;if(T.p>=8)unlock('tour');S.money+=rw;ex+=px+'トーナメント終了！報酬 '+$m(rw)+'</p>';S.tour={n:0,p:0}}}
  if(mode=='ch3'){const kk=''+dayNum();if(gain>(S.hi[kk]||0)){S.hi[kk]=gain;ex+=px+'デイリー挑戦 自己ベスト更新！</p>'}}
  if(Rsave){Object.assign(R,Rsave);Rsave=null}
+ {const ga=hr==0?2:1;S.opp.forEach(id=>{const c=chById(id),o=lvOf(S.af[id]||0);S.af[id]=(S.af[id]||0)+ga;const n=lvOf(S.af[id]);if(n>o){ex+=px+'💗 '+c.n+'との好感度がLv'+n+'（'+AFN[n]+'）に！</p>';if(n>=3)unlock('af')}});
+  const cc=chById(hr==0?S.opp[Math.random()*3|0]:S.opp[ord[0]-1]);
+  ex+='<p style="margin:8px 0;display:flex;align-items:center;gap:8px;text-align:left;font-size:13px">'+av(cc,44)+'<span><b>'+cc.n+'</b>「'+(hr==0?cc.lose:cc.win)+'」</span></p>'}
  if(S.g>=50)unlock('g50');if(S.pt>=10000)unlock('pt1000');save();render();sfx(hr==0?'win':'lose');
  $('res').innerHTML='<h2 style="color:var(--gold);margin:0">結果</h2>'+ord.map((p,i)=>TT[i]+'：'+NM[p]+(fl.has(p)?'（反則上がり）':'')).join('<br>')+'<br>'+fm+'<p style="margin:6px 0;font-size:13px">難易度：'+D_NM[eD]+'　連勝：'+S.st+'</p><p style="margin:6px 0">今回スコア <b style="color:var(--gold)">'+$m(gain)+'</b> → 所持金 '+$m(S.money)+'<br><small>'+bd+'</small></p>'+ex+nw.map(x=>'<p style="margin:2px 0;color:var(--gold)">🏆 '+x+'</p>').join('');nw=[];updLv();
  setTimeout(()=>$('end').style.display='flex',700)}
@@ -350,11 +401,11 @@ $('play').onclick=()=>{const cs=H[0].filter(c=>sel.has(c.id));
  if(turn==0&&ok(cs))doPlay(0,cs)};
 $('pass').onclick=()=>{if(turn==0&&field)doPass(0)};
 $('rl').innerHTML=RULES.map(([k,n,d])=>'<label><input type="checkbox" data-k="'+k+'" '+(R[k]?'checked':'')+'><b>'+n+'</b><span>'+d+'</span></label>').join('');
-$('rl').onchange=e=>{R[e.target.dataset.k]=e.target.checked?1:0;if(H){field=field&&ok([])?field:field;render()}};
+$('rl').onchange=e=>{const k=e.target.dataset.k;R[k]=e.target.checked?1:0;if(Rsave)Rsave[k]=R[k];if(H&&over===false)render()};
 $('rb').onclick=()=>$('rm').style.display='flex';
 migr();daily();$('spd').value=S.spd==null?1:S.spd;$('spd').onchange=()=>{S.spd=+$('spd').value;save()};$('df').value=S.d;applyTheme();updSb();$('bm').onclick=()=>{S.bgm=S.bgm?0:1;save();updSb();bgmCtl()};$('sb').onclick=()=>{S.snd=S.snd?0:1;save();updSb();sfx('sel')};$('shp').onclick=showSp;$('rd').onclick=()=>{if(rd>0&&!hm&&!xm&&!over){sfx('sel');start(rd-1)}};
 $('ht').onclick=()=>{if(turn!=0||hl<=0||over||xm)return;const L=legal(H[0]);if(!L.length)return toast('出せる手がありません。パスしましょう');
  const cst=cs=>{const v=validate(cs),j=cs.filter(c=>c.r==16).length;return sr(v.key)+j*40-(field?0:cs.length*1.5)};L.sort((a,b)=>cst(a)-cst(b));hl--;sfx('sel');
  if(field&&L[0].some(c=>c.r==16)&&H[0].length>3){toast('ヒント：パスがおすすめです');return render()}sel=new Set(L[0].map(c=>c.id));render()};$('df').onchange=()=>{S.d=+$('df').value;save()};$('kb').onclick=showRc;
-start();
+showMenu();
 </script></body></html>
