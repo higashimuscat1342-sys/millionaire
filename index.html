@@ -26,7 +26,7 @@ h1{font-size:18px;margin:4px 0 8px;color:var(--gold);letter-spacing:.2em;text-al
 .c.j{color:#6a2fc4;font-size:11px}
 #hand .c{margin:2px -6px;cursor:pointer}
 #hand .c.s{transform:translateY(-14px);outline:3px solid var(--gold)}
-#btns{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}#ht,#rd{background:#fff3;color:var(--tx)}#cfm{white-space:pre-line}.scr{position:fixed;inset:0;z-index:8;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 14px) 12px 24px}.wrap{max-width:560px;margin:0 auto}
+#btns{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}#ht,#rd{background:#fff3;color:var(--tx)}#cfm{white-space:pre-line}#hl{text-align:center;font-size:11px;opacity:.6;line-height:1.5;min-height:50px;margin-top:2px}.scr{position:fixed;inset:0;z-index:8;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 14px) 12px 24px}.wrap{max-width:560px;margin:0 auto}
 .ttl{font-size:30px;text-align:center;margin:12px 0 2px;letter-spacing:.2em;color:var(--gold)}.ttl small{display:block;font-size:12px;letter-spacing:.3em;opacity:.8}
 .mlv{text-align:center;font-size:12px;opacity:.9;margin-bottom:14px;line-height:1.7}.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mb{padding:14px 8px;font-size:15px;background:#0006;color:var(--tx);border:1px solid #e8c35a66;border-radius:14px}.mb.big{grid-column:span 2;background:linear-gradient(135deg,#e8c35a,#c9962f);color:#222;font-size:17px;padding:18px}.mb small{display:block;font-size:11px;font-weight:400}
@@ -44,16 +44,17 @@ button:disabled{opacity:.35;cursor:default}
 #rm b{margin:0 6px;color:var(--gold)}#rm span{opacity:.85}
 @media(max-width:520px){.c{width:40px;height:60px;font-size:13px}#hand .c{margin:2px -8px}.opp{font-size:11px}}
 </style></head><body>
-<div id="bar"><button id="mn" class="tb" onclick="showMenu()">≡ メニュー</button><span class="sp"></span><button id="shp" class="tb">ショップ</button><button id="kb" class="tb">記録</button><button id="rb" class="tb">ルール</button><button id="sb" class="tb"></button><button id="bm" class="tb"></button></div><div id="toast"></div>
+<div id="bar"><button id="mn" class="tb" onclick="showMenu()">≡ メニュー</button><button id="hb" class="tb" onclick="showHist()">📜 履歴</button><span class="sp"></span><button id="shp" class="tb">ショップ</button><button id="kb" class="tb">記録</button><button id="rb" class="tb">ルール</button><button id="sb" class="tb"></button><button id="bm" class="tb"></button></div><div id="toast"></div>
 <div id="app">
 <h1>♠ 大富豪 ♥</h1><div id="lv"></div>
 <div id="opps"></div>
 <div id="field"><div id="rev"></div><div id="fc"></div></div>
-<div id="log"></div>
+<div id="log"></div><div id="hl"></div>
 <div id="me"><div id="hand"></div>
 <div id="btns"><button id="play">出す</button><button id="pass">パス</button><button id="ht" style="display:none"></button><button id="rd" style="display:none">配り直し</button></div><div id="skb"></div></div>
 </div>
-<div id="end" class="ov"><div><div id="res"></div><button onclick="start()">もう一度</button> <button onclick="$('end').style.display='none';showMenu()" style="background:#fff3;color:var(--tx)">メニューへ</button></div></div>
+<div id="end" class="ov"><div><div id="res"></div><button onclick="start()">もう一度</button> <button onclick="showHist()" style="background:#fff3;color:var(--tx)">履歴</button> <button onclick="$('end').style.display='none';showMenu()" style="background:#fff3;color:var(--tx)">メニューへ</button></div></div>
+<div id="hm" class="ov"><div><h2 id="hmt" style="margin:0 0 8px;color:var(--gold)">履歴</h2><div id="hlist" style="max-height:60vh;overflow:auto;font-size:13px;line-height:1.6;text-align:left"></div><div style="text-align:center;margin-top:12px"><button onclick="$('hm').style.display='none'">閉じる</button></div></div></div>
 <div id="rm" class="ov"><div><h2 style="margin:0 0 6px;color:var(--gold)">ルール</h2>
 <p style="font-size:13px;margin:0 0 8px">強さ：3＜4＜…＜K＜A＜2＜ジョーカー。場と同じ枚数で強いカードを出す。出せない時はパス。全員パスで場が流れる。チェックでON/OFF（カード交換は次の対戦から）。</p>
 <div id="rnote" style="color:#ff9a7a;font-size:12px;margin-bottom:6px"></div><div id="rl"></div><div style="text-align:center;margin-top:12px"><button onclick="$('rm').style.display='none'">閉じる</button></div></div></div>
@@ -79,7 +80,7 @@ button:disabled{opacity:.35;cursor:default}
 const SU=['♠','♥','♦','♣'],RL={11:'J',12:'Q',13:'K',14:'A',15:'2'};
 const NM=['あなた','CPU 太郎','CPU 花子','CPU 次郎'],TT=['大富豪','富豪','貧民','大貧民'];
 const FEAT={chars:false,gacha:false};/* trueにするとキャラクター／ガチャ機能が再表示されます */
-const R={eight:1,revo:1,eleven:1,shib:1,stair:1,sp3:1,five:1,foul:1,exch:1,nine:1,fall:1,draft:0,ten:0,seven:0};
+const R={eight:1,revo:1,eleven:1,shib:1,stair:1,sp3:1,five:1,foul:1,exch:1,nine:1,fall:1,draft:0,ten:0,seven:0,cpusk:0};
 const RULES=[['eight','8切り','8を出すと場が流れ、もう一度自分の番。'],
 ['revo','革命','同じ数字を4枚以上同時に出すと、強弱が逆転。'],
 ['eleven','11バック','Jを出すと、場が流れるまで強弱が逆転。'],
@@ -88,7 +89,7 @@ const RULES=[['eight','8切り','8を出すと場が流れ、もう一度自分�
 ['sp3','スペ3返し','ジョーカー単体を♠3で返せる。'],
 ['five','5スキップ','5を出すと次の人を飛ばす。'],
 ['foul','反則上がり','8かジョーカーで上がると最下位扱い。'],
-['nine','9リバース','9を出すと順番の回る向きが逆になる。'],['fall','都落ち','前回の大富豪が1位で上がれないと、大貧民に転落。'],['ten','10捨て','10を出すと、手札の最弱カードを枚数分だけ自動で捨てる。'],['seven','7渡し','7を出すと、手札の最弱カードを枚数分だけ次の人に渡す。'],['draft','ルールドラフト','毎戦ランダムで特殊ルールが3つだけ有効になる（8切り・革命は常時）。'],['exch','カード交換','2戦目以降：大貧民→大富豪に最強2枚（大富豪は好きな2枚を返す）、貧民⇔富豪は1枚。大貧民から開始。']];
+['nine','9リバース','9を出すと順番の回る向きが逆になる。'],['fall','都落ち','前回の大富豪が1位で上がれないと、大貧民に転落。'],['cpusk','CPUのスキル','CPUが1試合1度「場流し」を使い、自分が出せない場面で場を奪って先攻することがある（初期はオフ）。'],['ten','10捨て','10を出すと、手札の最弱カードを枚数分だけ自動で捨てる。'],['seven','7渡し','7を出すと、手札の最弱カードを枚数分だけ次の人に渡す。'],['draft','ルールドラフト','毎戦ランダムで特殊ルールが3つだけ有効になる（8切り・革命は常時）。'],['exch','カード交換','2戦目以降：大貧民→大富豪に最強2枚（大富豪は好きな2枚を返す）、貧民⇔富豪は1枚。大貧民から開始。']];
 let H,field,last,passes,turn,rev,bk,shib,out,fl,sel,over,prev=null,xm=null;
 const $=id=>document.getElementById(id);
 const $m=n=>'$'+Math.round(n).toLocaleString();
@@ -277,7 +278,7 @@ function legal(h){const g={},J=h.filter(c=>c.r==16),P=[];
    if(cs.length&&jn<=J.length){cs=cs.concat(J.slice(0,jn));if(ok(cs))P.push(cs)}}}
  return P}
 const sortAll=()=>H.forEach(h=>h.sort((a,b)=>a.r-b.r||a.s-b.s));
-function start(k){const rdl=typeof k=='number';
+function start(k){const rdl=typeof k=='number';LOGH=[];
  rd=rdl?k:(S.inv.redo?1:0);hl=S.inv.hint?3:0;hm=false;dir=1;daily();
  if(!rdl){if(Rsave){Object.assign(R,Rsave);Rsave=null}
   mode=$('md').value;if(mode[0]=='b'&&S.best<3){mode='normal';toast('ボス戦は3連勝で解放されます')}
@@ -306,7 +307,12 @@ function start(k){const rdl=typeof k=='number';
   turn=prev[3];m=(m||'カード交換')+(xm?'　渡すカードを'+xm.n+'枚選んで「渡す」':'')+'　'+NM[turn]+'から開始';
  }else{sortAll();turn=Math.max(0,H.findIndex(h=>h.some(c=>c.s==2&&c.r==3)));m=NM[turn]+'から開始（♦3の人）'}
  sortAll();say(m);tick()}
-const say=m=>$('log').textContent=m;
+let LOGH=[];
+function say(m){$('log').textContent=m;LOGH.push(m);if(LOGH.length>800)LOGH.shift();
+ const e=$('hl');e.innerHTML='';LOGH.slice(-4,-1).forEach(x=>{const d=document.createElement('div');d.textContent=x;e.appendChild(d)})}
+function showHist(){const L=$('hlist');L.innerHTML='';
+ LOGH.forEach((x,i)=>{const d=document.createElement('div');d.style.cssText='padding:3px 0;border-bottom:1px solid #fff1'+(x.startsWith('あなた')?';color:var(--gold)':'');d.textContent=(i+1)+'. '+x;L.appendChild(d)});
+ $('hmt').textContent='履歴（'+LOGH.length+'件）';$('hm').style.display='flex';L.scrollTop=L.scrollHeight}
 function cardEl(c,cls=''){const e=document.createElement('div');e.dataset.cd=S.eq.cd;
  e.className='c '+(c.r==16?'j ':(c.s==1||c.s==2?'r ':''))+cls;
  e.innerHTML=c.r==16?'JOKER<i>🃏</i>':(RL[c.r]||c.r)+(c.up?'★':'')+'<i>'+SU[c.s]+'</i>';return e}
@@ -370,15 +376,16 @@ function doPlay(p,cs){
  turn=clear?(act(p)?p:nextA(p)):nextA(p);
  if(skip&&!clear){turn=nextA(turn);m+='  5スキップ！';sfx('skip');if(p==0){unlock('five');ev('five',50)}}
  if(field&&turn==last&&act(last)){clearF();m+='  → 場が流れた'}
- say(m);tick()}
+ say(m+'　（次：'+NM[turn]+'）');tick()}
 function doPass(p){
  sfx('pass');if(p==0)hm=true;passes++;
  const need=nAct()-(act(last)?1:0);
- if(passes>=need){clearF();turn=act(last)?last:nextA(last);say(NM[p]+'：パス → 場が流れました（'+NM[turn]+'の番）')}
- else{say(NM[p]+'：パス');turn=nextA(p)}
+ const nx=nextA(p);
+ if(passes>=need||(act(last)&&nx==last)){clearF();turn=act(last)?last:nextA(last);say(NM[p]+'：パス → 全員パスで場が流れました（'+NM[last]+'の手が通り、'+NM[turn]+'から）')}
+ else{say(NM[p]+'：パス（次：'+NM[nx]+'）');turn=nx}
  tick()}
 function cpu(p){
- const L=legal(H[p]);if(!L.length){if(csk[p]&&field&&H[p].length<=5&&Math.random()<.5){csk[p]=0;clearF();say(NM[p]+'：スキル「場流し」発動！');sfx('cut');turn=p;return tick()}return doPass(p)}
+ const L=legal(H[p]);if(!L.length){if(R.cpusk&&csk[p]&&field&&H[p].length<=5&&Math.random()<.5){csk[p]=0;clearF();toast(NM[p]+'がスキル「場流し」を発動！');say(NM[p]+'：スキル「場流し」発動！場を奪って先攻');sfx('cut');turn=p;return tick()}return doPass(p)}
  const D=eD,T=TR[tr[p]||0][1];
  if(D==0){if(field&&Math.random()<.3)return doPass(p);return doPlay(p,L[Math.random()*L.length|0])}
  const cost=cs=>{const v=validate(cs),j=cs.filter(c=>c.r==16).length;
@@ -399,7 +406,7 @@ function cpu(p){
 function finish(){over=true;
  const ord=[...out.filter(p=>!fl.has(p)),...out.filter(p=>fl.has(p))],pr=prev?prev.indexOf(0):-1;
  let fm='';const pt0=prev?prev[0]:-1;if(R.fall&&pt0>=0&&ord[0]!=pt0){ord.splice(ord.indexOf(pt0),1);ord.push(pt0);fm='<br>'+NM[pt0]+'は都落ち！'}
- const hr=ord.indexOf(0);prev=ord;const base=[1000,600,300,100][hr]+gs;
+ const hr=ord.indexOf(0);LOGH.push('終了：'+ord.map((p,i)=>TT[i]+' '+NM[p]).join(' / '));prev=ord;const base=[1000,600,300,100][hr]+gs;
  let mw=1;if(hr==0)mw+=(evs.has('rev')?.5:0)+(evs.has('stair')?.2:0)+(evs.has('back')?.1:0);
  const sk=hr==0?Math.min(3,1+.1*S.st):1,gain=Math.round(base*mw*sk*D_PT[eD]*MM[mode]*(1+.25*S.pr)*(S.inv.purse?1.25:1)*Math.max(.7,1-.05*su));
  const bd='基本'+base+'（順位＋イベント'+gs+'）×勝利ボーナス'+mw.toFixed(1)+'×連勝'+sk.toFixed(1)+'×難易度'+D_PT[eD]+(MM[mode]!=1?'×モード'+MM[mode]:'')+(S.pr?'×転生'+(1+.25*S.pr):'')+(S.inv.purse?'×財布1.25':'')+(su?'×スキル使用'+Math.max(.7,1-.05*su).toFixed(2):'');
